@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imgTmbSepeda"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/add" />
+
+        <EditText
+            android:id="@+id/edtNamaSepeda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgTmbSepeda"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Merk Sepeda"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/edtDetHargaSepeda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtNamaSepeda"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Harga Sewa/hari"
+            android:inputType="number"
+            android:textSize="25sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/edtDetKet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtDetHargaSepeda"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Keterangan"
+            android:textSize="26sp"
+            android:textStyle="italic" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtDetKet"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170dp">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnTmbSepeda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/custom"
+                    android:text="Update"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnLhtData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/custom"
+                    android:text="Lihat\nData"
+                    android:textColor="#FFFFFF" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+</ScrollView>

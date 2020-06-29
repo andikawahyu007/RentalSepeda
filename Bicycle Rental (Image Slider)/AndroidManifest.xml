@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hafedo.tantangan_sesi_06">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ServicesActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".PhoneActivity3" />
+        <activity android:name=".PhoneActivity2" />
+        <activity android:name=".PhoneActivity1" />
+        <activity android:name=".PayBillActivity" />
+        <activity android:name=".HomeServicesActivity3" />
+        <activity android:name=".HomeServicesActivity2" />
+        <activity android:name=".HomeServicesActivity1" />
+        <activity android:name=".DeliveryActivity" />
+        <activity android:name=".ContactUsActivity" />
+        <activity android:name=".ComputerActivity3" />
+        <activity android:name=".ComputerActivity2" />
+        <activity android:name=".ComputerActivity1" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
