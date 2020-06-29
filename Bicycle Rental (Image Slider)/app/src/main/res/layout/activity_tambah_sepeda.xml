@@ -20,11 +20,12 @@
             android:src="@drawable/add" />
 
         <EditText
-            android:id="@+id/edtNamaSepeda"
+            android:id="@+id/edtUpdNamaSepeda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgTmbSepeda"
             android:layout_marginTop="20dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:hint="Merk Sepeda"
@@ -36,12 +37,14 @@
             android:id="@+id/edtDetHargaSepeda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edtNamaSepeda"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/edtUpdNamaSepeda"
+            android:layout_marginTop="15dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:hint="Harga Sewa/hari"
             android:inputType="number"
+            android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="italic" />
 
@@ -50,11 +53,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edtDetHargaSepeda"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:hint="Keterangan"
-            android:textSize="26sp"
+            android:textColor="#000000"
+            android:textSize="25sp"
             android:textStyle="italic" />
 
         <TableLayout

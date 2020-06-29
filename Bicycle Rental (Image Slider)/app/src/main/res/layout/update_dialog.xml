@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ImgUpdGambar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/add" />
+
+        <EditText
+            android:id="@+id/edtUpdNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ImgUpdGambar"
+            android:layout_marginTop="20dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Nama Update Sepeda"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtUpdHarga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtUpdNama"
+            android:layout_marginTop="15dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Harga/hari"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/edtUpdKet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtUpdHarga"
+            android:layout_marginTop="15dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Keterangan"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/btnUpdDataSpd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtUpdKet"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom"
+            android:text="Update" />
+
+    </RelativeLayout>
+
+</ScrollView>

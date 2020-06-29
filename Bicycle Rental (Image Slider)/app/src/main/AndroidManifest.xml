@@ -11,16 +11,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".data_sepeda"></activity>
-        <activity android:name=".IntroActivity" />
-        <activity android:name=".login_apps" />
-        <activity android:name=".statistik_data" />
-        <activity android:name=".list_sewa" />
-        <activity android:name=".tambah_sewa" />
-        <activity android:name=".list_sepeda" />
         <activity android:name=".about_us" />
         <activity android:name=".tambah_sepeda" />
         <activity android:name=".main_menu" />
+        <activity android:name=".ListSepedaActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -37,7 +37,7 @@ public class tambah_sepeda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_sepeda);
 
-        mEdtNama = findViewById(R.id.edtNamaSepeda);
+        mEdtNama = findViewById(R.id.edtUpdNamaSepeda);
         mEdtHarga = findViewById(R.id.edtDetHargaSepeda);
         mEdtKeterangan = findViewById(R.id.edtDetKet);
         mBtnTmbSepeda = findViewById(R.id.btnTmbSepeda);
@@ -77,13 +77,12 @@ public class tambah_sepeda extends AppCompatActivity {
             }
         });
 
-//        mBtnLihatData.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(tambah_sepeda.this, IntroActivity.class);
-//                startActivity(i);
-//            }
-//        });
+        mBtnLihatData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(tambah_sepeda.this, ListSepedaActivity.class));
+            }
+        });
     }
 
     public static byte[] imageViewToByte(ImageView image) {
