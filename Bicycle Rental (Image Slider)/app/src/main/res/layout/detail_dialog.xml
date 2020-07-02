@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    android:layout_height="fill_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
     android:background="@drawable/background">
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
         <ImageView
+            android:id="@+id/detGambar"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/logo"
-            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/detGambar"
-            />
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo" />
 
         <TextView
+            android:id="@+id/detNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detNama"
-            android:text="Nama tambah_sepeda"
+            android:layout_below="@id/detGambar"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Nama Sepeda"
             android:textColor="#000000"
             android:textSize="28sp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_below="@id/detGambar"
-            />
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/detHarga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detHarga"
-            android:text="Recipe tambah_sepeda"
-            android:textSize="26sp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:textStyle="italic"
-            android:fontFamily="sans-serif-light"
             android:layout_below="@id/detNama"
-            />
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="Harga Sepeda"
+            android:textSize="26sp"
+            android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/btnKembali"
-            android:background="@drawable/custom"
-            android:text="Kembali Ke Kumpulan Recipe tambah_sepeda"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/detKet"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/detHarga"/>
+            android:layout_below="@id/detHarga"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="Keterangan"
+            android:textSize="26sp"
+            android:textStyle="italic" />
 
     </RelativeLayout>
 

@@ -11,6 +11,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ListSewaActivity"
+            android:label="@string/title_activity_list_sewa"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".about_us" />
         <activity android:name=".tambah_sepeda" />
         <activity android:name=".main_menu" />

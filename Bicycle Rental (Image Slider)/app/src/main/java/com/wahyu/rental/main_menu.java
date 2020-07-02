@@ -39,7 +39,7 @@ public class main_menu extends AppCompatActivity {
     private class MenuDataSepeda implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(main_menu.this, tambah_sepeda.class);
+            Intent i = new Intent(main_menu.this, ListSepedaActivity.class);
             startActivity(i);
         }
     }

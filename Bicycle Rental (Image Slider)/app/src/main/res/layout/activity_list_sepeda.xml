@@ -9,12 +9,27 @@
     android:padding="5dp"
     tools:context=".ListSepedaActivity">
 
-    <ListView
-        android:id="@+id/listSepeda"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#FF7D00">
+        android:layout_height="match_parent">
 
-    </ListView>
+        <ListView
+            android:id="@+id/listSepeda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#FF7D00" />
+
+        <ImageButton
+            android:id="@+id/btnLihatSepeda"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="30dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/custom"
+            android:src="@drawable/plus"
+            />
+
+    </RelativeLayout>
 
 </LinearLayout>

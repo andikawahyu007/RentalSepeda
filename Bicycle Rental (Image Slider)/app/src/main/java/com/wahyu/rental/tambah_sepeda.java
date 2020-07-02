@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
 public class tambah_sepeda extends AppCompatActivity {
 
     EditText mEdtNama, mEdtHarga, mEdtKeterangan;
-    Button mBtnTmbSepeda, mBtnLihatData;
+    Button mBtnTmbSepeda;
     ImageView mImageAdd;
 
     final int REQUEST_CODE_GALLERY = 999;
@@ -39,9 +39,8 @@ public class tambah_sepeda extends AppCompatActivity {
 
         mEdtNama = findViewById(R.id.edtUpdNamaSepeda);
         mEdtHarga = findViewById(R.id.edtDetHargaSepeda);
-        mEdtKeterangan = findViewById(R.id.edtDetKet);
+        mEdtKeterangan = findViewById(R.id.edtTmbKet);
         mBtnTmbSepeda = findViewById(R.id.btnTmbSepeda);
-        mBtnLihatData = findViewById(R.id.btnLhtData);
         mImageAdd = findViewById(R.id.imgTmbSepeda);
 
         mSQLiteHelper = new SQLiteHelper(this, "Data_SepedaDB.sqlite", null, 1);
@@ -74,13 +73,6 @@ public class tambah_sepeda extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-        mBtnLihatData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(tambah_sepeda.this, ListSepedaActivity.class));
             }
         });
     }

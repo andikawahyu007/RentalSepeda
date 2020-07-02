@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,18 +43,22 @@ public class ListSepedaActivity extends AppCompatActivity {
     byte[] img = {};
     ImageView imageViewIcon;
     private static final String TAG = "ListSepedaActivity";
+    public static SQLiteHelper mSQLiteHelper;
+    ImageButton mLihatSepeda;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_sepeda);
 
         mListView = findViewById(R.id.listSepeda);
+        mLihatSepeda = findViewById(R.id.btnLihatSepeda);
         mList = new ArrayList<>();
         mAdapter = new ListSepedaAdapter(this, R.layout.row, mList);
         mListView.setAdapter(mAdapter);
-
+        mSQLiteHelper = new SQLiteHelper(this, "Data_SepedaDB.sqlite", null, 1);
         //get all data from sqlite
-        Cursor cursor = tambah_sepeda.mSQLiteHelper.getData("SELECT * FROM Data_Sepeda");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM Data_Sepeda");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -75,6 +80,8 @@ public class ListSepedaActivity extends AppCompatActivity {
             Toast.makeText(this, "Maaf, Tidak Ada Data Sepeda Yang Ditemukan", Toast.LENGTH_SHORT).show();
         }
 
+        mLihatSepeda.setOnClickListener(new TambahSepeda());
+
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
@@ -89,7 +96,7 @@ public class ListSepedaActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
                             //update
-                            Cursor c = tambah_sepeda.mSQLiteHelper.getData("SELECT id FROM Data_Sepeda");
+                            Cursor c = mSQLiteHelper.getData("SELECT id FROM Data_Sepeda");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()) {
                                 arrID.add(c.getInt(0));
@@ -99,7 +106,7 @@ public class ListSepedaActivity extends AppCompatActivity {
                         }
                         if (i == 1) {
                             //delete
-                            Cursor c = tambah_sepeda.mSQLiteHelper.getData("SELECT id FROM Data_Sepeda");
+                            Cursor c = mSQLiteHelper.getData("SELECT id FROM Data_Sepeda");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()) {
                                 arrID.add(c.getInt(0));
@@ -118,7 +125,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //read
-                Cursor c = tambah_sepeda.mSQLiteHelper.getData("SELECT id FROM Data_Sepeda");
+                Cursor c = mSQLiteHelper.getData("SELECT id FROM Data_Sepeda");
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
                 while (c.moveToNext()) {
                     arrID.add(c.getInt(0));
@@ -128,7 +135,36 @@ public class ListSepedaActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private class TambahSepeda implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ListSepedaActivity.this, tambah_sepeda.class);
+            startActivity(i);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM Data_Sepeda");
+        mList.clear();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String nama = cursor.getString(1);
+            int harga = cursor.getInt(2);
+            String keterangan = cursor.getString(3);
+            byte[] gambar = cursor.getBlob(4);
+            //add to list
+            Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
+            Gson gson = new Gson();
+//            newSepeda.setGambar(img);
+//            String sepeda = gson.toJson(newSepeda).toString();
+//            Log.d(TAG, "onCreate: "+sepeda);
+            mList.add(newSepeda);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void showDialogDelete(final int idRecord) {
@@ -139,7 +175,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
-                    tambah_sepeda.mSQLiteHelper.deleteData(idRecord);
+                    mSQLiteHelper.deleteData(idRecord);
                     Toast.makeText(ListSepedaActivity.this, "Data Sepeda Berhasil Dihapus", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());
@@ -168,7 +204,7 @@ public class ListSepedaActivity extends AppCompatActivity {
         Button btnUpdate = dialog.findViewById(R.id.btnUpdDataSpd);
 
         //get all data from sqlite
-        Cursor cursor = tambah_sepeda.mSQLiteHelper.getData("SELECT * FROM Data_Sepeda WHERE id=" + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM Data_Sepeda WHERE id=" + position);
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -207,7 +243,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    tambah_sepeda.mSQLiteHelper.updateData(
+                    mSQLiteHelper.updateData(
                             edtUpdNama.getText().toString().trim(),
                             Integer.parseInt(edtUpdHarga.getText().toString().trim()),
                             edtUpdKet.getText().toString().trim(),
@@ -227,7 +263,7 @@ public class ListSepedaActivity extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = tambah_sepeda.mSQLiteHelper.getData("SELECT * FROM Data_Sepeda");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM Data_Sepeda");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -249,19 +285,19 @@ public class ListSepedaActivity extends AppCompatActivity {
         imageViewIcon = dialog.findViewById(R.id.detGambar);
         final TextView edtUpdNama = dialog.findViewById(R.id.detNama);
         final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
-
-        Button btnKembali = dialog.findViewById(R.id.btnKembali);
+        final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
 
         //get all data from sqlite
-        Cursor cursor = tambah_sepeda.mSQLiteHelper.getData("SELECT * FROM Data_Sepeda WHERE id=" + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM Data_Sepeda WHERE id=" + position);
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);
             edtUpdNama.setText(nama);
             int harga = cursor.getInt(2);
-            edtUpdHarga.setText(harga+"");
+            edtUpdHarga.setText(harga + "");
             String keterangan = cursor.getString(3);
+            edtUpdKet.setText(keterangan);
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
             //add to list
@@ -274,29 +310,7 @@ public class ListSepedaActivity extends AppCompatActivity {
         int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
         dialog.getWindow().setLayout(width, height);
         dialog.show();
-
-        btnKembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                //get all data from sqlite
-                Cursor cursor = tambah_sepeda.mSQLiteHelper.getData("SELECT * FROM Data_Sepeda");
-                mList.clear();
-                while (cursor.moveToNext()) {
-                    int id = cursor.getInt(0);
-                    String nama = cursor.getString(1);
-                    int harga = cursor.getInt(2);
-                    String keterangan = cursor.getString(3);
-                    byte[] gambar = cursor.getBlob(4);
-                    //add to list
-                    mList.add(new Sepeda(id, nama, harga, keterangan, gambar));
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-
         mAdapter.notifyDataSetChanged();
-
     }
 
     public static byte[] imageViewToByte(ImageView image) {
