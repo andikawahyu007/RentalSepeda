@@ -1,11 +1,11 @@
 package com.wahyu.rental;
 
-public class InputData {
+public class Sepeda {
     private int id, harga;
     private String nama, keterangan;
     private byte[] gambar;
 
-    public InputData(int id, String nama, int harga, String keterangan, byte[] gambar) {
+    public Sepeda(int id, String nama, int harga, String keterangan, byte[] gambar) {
         this.id = id;
         this.nama = nama;
         this.harga = harga;

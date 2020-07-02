@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detRecipe"
+            android:id="@+id/detHarga"
             android:text="Recipe tambah_sepeda"
             android:textSize="26sp"
             android:layout_marginTop="10dp"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/detRecipe"/>
+            android:layout_below="@id/detHarga"/>
 
     </RelativeLayout>
 

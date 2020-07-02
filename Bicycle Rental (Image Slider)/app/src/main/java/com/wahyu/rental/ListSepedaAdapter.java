@@ -16,9 +16,9 @@ public class ListSepedaAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private ArrayList<InputData> recordList;
+    private ArrayList<Sepeda> recordList;
 
-    public ListSepedaAdapter(Context context, int layout, ArrayList<InputData> recordList) {
+    public ListSepedaAdapter(Context context, int layout, ArrayList<Sepeda> recordList) {
         this.context = context;
         this.layout = layout;
         this.recordList = recordList;
@@ -61,10 +61,10 @@ public class ListSepedaAdapter extends BaseAdapter {
             holder = (ViewHolder) row.getTag();
         }
 
-        InputData model = recordList.get(i);
+        Sepeda model = recordList.get(i);
 
         holder.txtRowNama.setText(model.getNama());
-        holder.txtRowHarga.setText(model.getHarga());
+        holder.txtRowHarga.setText(model.getHarga()+"");
 
         byte[] recordGambar = model.getGambar();
         Bitmap bitmap = BitmapFactory.decodeByteArray(recordGambar, 0, recordGambar.length);

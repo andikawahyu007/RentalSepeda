@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -36,11 +37,11 @@ import java.util.ArrayList;
 public class ListSepedaActivity extends AppCompatActivity {
 
     ListView mListView;
-    ArrayList<InputData> mList;
+    ArrayList<Sepeda> mList;
     ListSepedaAdapter mAdapter = null;
-
+    byte[] img = {};
     ImageView imageViewIcon;
-
+    private static final String TAG = "ListSepedaActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,12 @@ public class ListSepedaActivity extends AppCompatActivity {
             String keterangan = cursor.getString(3);
             byte[] gambar = cursor.getBlob(4);
             //add to list
-            mList.add(new InputData(id, nama, harga, keterangan, gambar));
+            Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
+            Gson gson = new Gson();
+//            newSepeda.setGambar(img);
+//            String sepeda = gson.toJson(newSepeda).toString();
+//            Log.d(TAG, "onCreate: "+sepeda);
+            mList.add(newSepeda);
         }
         mAdapter.notifyDataSetChanged();
         if (mList.size() == 0) {
@@ -175,7 +181,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
             //add to list
-            mList.add(new InputData(id, nama, harga, keterangan, gambar));
+            mList.add(new Sepeda(id, nama, harga, keterangan, gambar));
         }
 
         //set width of dialog
@@ -230,7 +236,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             String keterangan = cursor.getString(3);
             byte[] gambar = cursor.getBlob(4);
             //add to list
-            mList.add(new InputData(id, nama, harga, keterangan, gambar));
+            mList.add(new Sepeda(id, nama, harga, keterangan, gambar));
         }
         mAdapter.notifyDataSetChanged();
     }
@@ -242,8 +248,8 @@ public class ListSepedaActivity extends AppCompatActivity {
 
         imageViewIcon = dialog.findViewById(R.id.detGambar);
         final TextView edtUpdNama = dialog.findViewById(R.id.detNama);
-        final EditText edtUpdHarga = dialog.findViewById(R.id.edtUpdHarga);
-        final TextView edtUpdKet = dialog.findViewById(R.id.detRecipe);
+        final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
+
         Button btnKembali = dialog.findViewById(R.id.btnKembali);
 
         //get all data from sqlite
@@ -254,13 +260,12 @@ public class ListSepedaActivity extends AppCompatActivity {
             String nama = cursor.getString(1);
             edtUpdNama.setText(nama);
             int harga = cursor.getInt(2);
-            edtUpdHarga.setText(harga);
+            edtUpdHarga.setText(harga+"");
             String keterangan = cursor.getString(3);
-            edtUpdKet.setText(keterangan);
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
             //add to list
-            mList.add(new InputData(id, nama, harga, keterangan, gambar));
+            mList.add(new Sepeda(id, nama, harga, keterangan, gambar));
         }
 
         //set width of dialog
@@ -284,7 +289,7 @@ public class ListSepedaActivity extends AppCompatActivity {
                     String keterangan = cursor.getString(3);
                     byte[] gambar = cursor.getBlob(4);
                     //add to list
-                    mList.add(new InputData(id, nama, harga, keterangan, gambar));
+                    mList.add(new Sepeda(id, nama, harga, keterangan, gambar));
                 }
                 mAdapter.notifyDataSetChanged();
             }
