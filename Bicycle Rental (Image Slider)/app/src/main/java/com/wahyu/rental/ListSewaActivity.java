@@ -31,14 +31,14 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 
 public class ListSewaActivity extends AppCompatActivity {
 
     ListView mListView;
-    ArrayList<Sepeda> mList;
-    ListSepedaAdapter mAdapter = null;
+    ArrayList<Sewa> mList;
+    ListSewaAdapter mAdapter = null;
     byte[] img = {};
     ImageView imageViewIcon;
     private static final String TAG = "ListSewaActivity";
@@ -50,10 +50,10 @@ public class ListSewaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_sewa);
 
-        mListView = findViewById(R.id.listSepeda);
-        mLihatSepeda = findViewById(R.id.btnLihatSepeda);
+        mListView = findViewById(R.id.listSewa);
+        mLihatSepeda = findViewById(R.id.btnTmbSewa);
         mList = new ArrayList<>();
-        mAdapter = new ListSepedaAdapter(this, R.layout.baris_item_sepeda, mList);
+        mAdapter = new ListSewaAdapter(this, R.layout.baris_item_sewa, mList);
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
         //get all data from sqlite
@@ -61,25 +61,25 @@ public class ListSewaActivity extends AppCompatActivity {
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String nama = cursor.getString(1);
-            int harga = cursor.getInt(2);
-            String keterangan = cursor.getString(3);
+            String nama_sepeda = cursor.getString(1);
+            String nama_penyewa = cursor.getString(2);
+            String tanggal = cursor.getString(3);
             byte[] gambar = cursor.getBlob(4);
             //add to list
-            Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
             Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
-            mList.add(newSepeda);
+            mList.add(newSewa);
         }
         mAdapter.notifyDataSetChanged();
         if (mList.size() == 0) {
             //if there is no record in table of database which means listview is empty
-            Toast.makeText(this, "Maaf, Tidak Ada Data Sepeda Yang Ditemukan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Maaf, Tidak Ada Data Sewa Yang Ditemukan", Toast.LENGTH_SHORT).show();
         }
 
-        mLihatSepeda.setOnClickListener(new TambahSepeda());
+        mLihatSepeda.setOnClickListener(new PilihanSepeda());
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -94,7 +94,7 @@ public class ListSewaActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
                             //update
-                            Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEPEDA + "");
+                            Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEWA + "");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()) {
                                 arrID.add(c.getInt(0));
@@ -113,7 +113,7 @@ public class ListSewaActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //read
-                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEPEDA + "");
+                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEWA + "");
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
                 while (c.moveToNext()) {
                     arrID.add(c.getInt(0));
@@ -121,14 +121,15 @@ public class ListSewaActivity extends AppCompatActivity {
                 //show detail dialog
                 showDialogDetail(ListSewaActivity.this, arrID.get(i));
 
+
             }
         });
     }
 
-    private class TambahSepeda implements View.OnClickListener {
+    private class PilihanSepeda implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(ListSewaActivity.this, tambah_sepeda.class);
+            Intent i = new Intent(ListSewaActivity.this, PilihSepeda.class);
             startActivity(i);
         }
     }
@@ -136,21 +137,21 @@ public class ListSewaActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + "");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String nama = cursor.getString(1);
-            int harga = cursor.getInt(2);
-            String keterangan = cursor.getString(3);
+            String nama_sepeda = cursor.getString(1);
+            String nama_penyewa = cursor.getString(2);
+            String tanggal = cursor.getString(3);
             byte[] gambar = cursor.getBlob(4);
             //add to list
-            Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
-//            Gson gson = new Gson();
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
+            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
-            mList.add(newSepeda);
+            mList.add(newSewa);
         }
         mAdapter.notifyDataSetChanged();
     }
@@ -182,30 +183,35 @@ public class ListSewaActivity extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + "");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String nama = cursor.getString(1);
-            int harga = cursor.getInt(2);
-            String keterangan = cursor.getString(3);
+            String nama_sepeda = cursor.getString(1);
+            String nama_penyewa = cursor.getString(2);
+            String tanggal = cursor.getString(3);
             byte[] gambar = cursor.getBlob(4);
             //add to list
-            mList.add(new Sepeda(id, nama, harga, keterangan, gambar));
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
+            Gson gson = new Gson();
+//            newSepeda.setGambar(img);
+//            String sepeda = gson.toJson(newSepeda).toString();
+//            Log.d(TAG, "onCreate: "+sepeda);
+            mList.add(newSewa);
         }
         mAdapter.notifyDataSetChanged();
     }
 
     private void showDialogDetail(Activity activity, final int position) {
         final Dialog dialog = new Dialog(activity);
-        dialog.setContentView(R.layout.dialog_detail_sepeda);
+        dialog.setContentView(R.layout.dialog_detail_sewa);
 
         imageViewIcon = dialog.findViewById(R.id.detGambar);
         final TextView edtUpdNama = dialog.findViewById(R.id.detNama);
         final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
         final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE id=" + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);

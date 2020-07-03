@@ -29,7 +29,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtBrsNama"
+                android:id="@+id/txtNamaPenyewa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -37,20 +37,20 @@
                 android:background="@drawable/custom"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Nama Sepeda"
+                android:text="Nama Penyewa"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtBrsHarga"
+                android:id="@+id/txtNamaSepeda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/custom"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Harga/hari"
+                android:text="Nama Sepeda"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold" />

@@ -16,9 +16,9 @@ public class ListSewaAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private ArrayList<Sepeda> recordList;
+    private ArrayList<Sewa> recordList;
 
-    public ListSewaAdapter(Context context, int layout, ArrayList<Sepeda> recordList) {
+    public ListSewaAdapter(Context context, int layout, ArrayList<Sewa> recordList) {
         this.context = context;
         this.layout = layout;
         this.recordList = recordList;
@@ -41,7 +41,7 @@ public class ListSewaAdapter extends BaseAdapter {
 
     private class ViewHolder {
         ImageView ImgBrsItem;
-        TextView txtBrsNama, txtBrsHarga;
+        TextView txtNamaPenyewa, txtNamaSepeda;
     }
 
     @Override
@@ -53,18 +53,18 @@ public class ListSewaAdapter extends BaseAdapter {
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, null);
-            holder.txtBrsNama = row.findViewById(R.id.txtBrsNama);
-            holder.txtBrsHarga = row.findViewById(R.id.txtBrsHarga);
+            holder.txtNamaPenyewa = row.findViewById(R.id.txtNamaPenyewa);
+            holder.txtNamaSepeda = row.findViewById(R.id.txtNamaSepeda);
             holder.ImgBrsItem = row.findViewById(R.id.ImgBrsItem);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
         }
 
-        Sepeda model = recordList.get(i);
+        Sewa model = recordList.get(i);
 
-        holder.txtBrsNama.setText(model.getNama());
-        holder.txtBrsHarga.setText(model.getHarga()+"");
+        holder.txtNamaSepeda.setText(model.getNama_sepeda());
+        holder.txtNamaPenyewa.setText(model.getNama_penyewa());
 
         byte[] recordGambar = model.getGambar();
         Bitmap bitmap = BitmapFactory.decodeByteArray(recordGambar, 0, recordGambar.length);

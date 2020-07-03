@@ -19,14 +19,14 @@ public class main_menu extends AppCompatActivity {
 
         mbtnAbout = findViewById(R.id.btnAbout);
         mbtnDataSepeda = findViewById(R.id.btnDataSepeda);
-//        mbtnDataSewa = findViewById(R.id.btnDataSewa);
+        mbtnDataSewa = findViewById(R.id.btnDataSewa);
         mbtnDataPelanggan = findViewById(R.id.btnDataPelanggan);
         mbtnKeluar = findViewById(R.id.btnKeluar);
 
         mbtnAbout.setOnClickListener(new MenuAbout());
         mbtnDataSepeda.setOnClickListener(new MenuDataSepeda());
         mbtnKeluar.setOnClickListener(new MenuKeluar());
-//        mbtnDataSewa.setOnClickListener(new MenuDataPelanggan());
+        mbtnDataSewa.setOnClickListener(new MenuDataSewa());
         mbtnDataPelanggan.setOnClickListener(new MenuDataPelanggan());
     }
 
@@ -46,13 +46,13 @@ public class main_menu extends AppCompatActivity {
         }
     }
 
-//    private class MenuDataSewa implements View.OnClickListener {
-//        @Override
-//        public void onClick(View view) {
-//            Intent i = new Intent(main_menu.this, ListPelangganActivity.class);
-//            startActivity(i);
-//        }
-//    }
+    private class MenuDataSewa implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(main_menu.this, ListSewaActivity.class);
+            startActivity(i);
+        }
+    }
 
     private class MenuDataPelanggan implements View.OnClickListener {
         @Override

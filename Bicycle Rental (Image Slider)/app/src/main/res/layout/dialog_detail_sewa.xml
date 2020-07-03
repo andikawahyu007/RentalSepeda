@@ -11,50 +11,49 @@
         android:layout_gravity="center"
         android:padding="15dp">
 
-        <EditText
-            android:id="@+id/detNamaPelanggan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:hint="Nama Pelanggan"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/detAlamat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detNamaPelanggan"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:hint="Alamat"
-            android:textSize="26sp" />
-
-        <EditText
-            android:id="@+id/detKetPelanggan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detAlamat"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:hint="Keterangan"
-            android:textSize="26sp" />
-
-        <Button
-            android:id="@+id/btnSimpanSewa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detKetPelanggan"
+        <ImageView
+            android:id="@+id/detGambar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_centerHorizontal="true"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/detNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detGambar"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom"
             android:gravity="center"
-            android:text="Simpan"
-            android:textColor="#FFFFFF" />
+            android:text="Nama Sepeda"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detHarga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detNama"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom"
+            android:gravity="center"
+            android:text="Harga Sepeda"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/detKet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detHarga"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom"
+            android:gravity="center"
+            android:text="Keterangan"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp" />
 
     </RelativeLayout>
 
