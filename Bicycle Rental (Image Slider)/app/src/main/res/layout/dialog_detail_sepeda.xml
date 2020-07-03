@@ -3,19 +3,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background">
+    android:background="#E13CE1">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_gravity="center"
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/detGambar"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:src="@drawable/logo" />
 
         <TextView
@@ -24,9 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/detGambar"
             android:layout_marginTop="20dp"
+            android:background="@drawable/custom"
             android:gravity="center"
             android:text="Nama Sepeda"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -36,11 +37,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/detNama"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-light"
+            android:background="@drawable/custom"
             android:gravity="center"
             android:text="Harga Sepeda"
-            android:textSize="26sp"
-            android:textStyle="italic" />
+            android:textColor="#FFFFFF"
+            android:textSize="26sp" />
 
         <TextView
             android:id="@+id/detKet"
@@ -48,11 +49,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/detHarga"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-light"
+            android:background="@drawable/custom"
             android:gravity="center"
             android:text="Keterangan"
-            android:textSize="26sp"
-            android:textStyle="italic" />
+            android:textColor="#FFFFFF"
+            android:textSize="26sp" />
 
     </RelativeLayout>
 

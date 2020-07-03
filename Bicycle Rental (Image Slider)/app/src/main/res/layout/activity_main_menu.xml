@@ -69,12 +69,12 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/btnStatistik"
+                    android:id="@+id/btnDataPelanggan"
                     android:layout_width="120dp"
                     android:layout_height="121dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/statistics" />
+                    android:background="@drawable/logo_about" />
 
                 <ImageButton
                     android:id="@+id/btnKeluar"

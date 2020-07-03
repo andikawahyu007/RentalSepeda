@@ -14,20 +14,10 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/listSepeda"
+            android:id="@+id/listPilihSepeda"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#FF7D00" />
-
-        <ImageButton
-            android:id="@+id/btnLihatSepeda"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:background="@drawable/custom"
-            android:src="@drawable/plus" />
 
     </RelativeLayout>
 

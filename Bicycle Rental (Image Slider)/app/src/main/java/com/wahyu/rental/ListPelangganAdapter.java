@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListSepedaAdapter extends BaseAdapter {
+public class ListPelangganAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private ArrayList<Sepeda> recordList;
+    private ArrayList<Pelanggan> recordList;
 
-    public ListSepedaAdapter(Context context, int layout, ArrayList<Sepeda> recordList) {
+    public ListPelangganAdapter(Context context, int layout, ArrayList<Pelanggan> recordList) {
         this.context = context;
         this.layout = layout;
         this.recordList = recordList;
@@ -39,36 +39,34 @@ public class ListSepedaAdapter extends BaseAdapter {
         return i;
     }
 
+
     private class ViewHolder {
-        ImageView ImgBrsItem;
-        TextView txtBrsNama, txtBrsHarga;
+        TextView txtBrsNama, txtBrsAlamat;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         View row = view;
-        ViewHolder holder = new ViewHolder();
+        ListPelangganAdapter.ViewHolder holder = new ListPelangganAdapter.ViewHolder();
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(layout, null);
             holder.txtBrsNama = row.findViewById(R.id.txtBrsNama);
-            holder.txtBrsHarga = row.findViewById(R.id.txtBrsHarga);
-            holder.ImgBrsItem = row.findViewById(R.id.ImgBrsItem);
+            holder.txtBrsAlamat = row.findViewById(R.id.txtBrsAlamat);
+
             row.setTag(holder);
         } else {
-            holder = (ViewHolder) row.getTag();
+            holder = (ListPelangganAdapter.ViewHolder) row.getTag();
         }
 
-        Sepeda model = recordList.get(i);
+        Pelanggan model = recordList.get(i);
 
         holder.txtBrsNama.setText(model.getNama());
-        holder.txtBrsHarga.setText(model.getHarga()+"");
+        holder.txtBrsAlamat.setText(model.getAlamat());
 
-        byte[] recordGambar = model.getGambar();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(recordGambar, 0, recordGambar.length);
-        holder.ImgBrsItem.setImageBitmap(bitmap);
+
 
         return row;
     }

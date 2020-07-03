@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/custom"
-                    android:text="Update"
+                    android:text="Simpan"
                     android:textColor="#FFFFFF" />
 
             </TableRow>

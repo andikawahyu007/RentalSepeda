@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class main_menu extends AppCompatActivity {
-    ImageButton mbtnAbout, mbtnDataSepeda, mbtnDataSewa, mbtnStatistik, mbtnKeluar;
+    ImageButton mbtnAbout, mbtnDataSepeda, mbtnDataSewa, mbtnDataPelanggan, mbtnKeluar;
     final Context mContext = this;
 
     @Override
@@ -19,13 +19,15 @@ public class main_menu extends AppCompatActivity {
 
         mbtnAbout = findViewById(R.id.btnAbout);
         mbtnDataSepeda = findViewById(R.id.btnDataSepeda);
-        mbtnDataSewa = findViewById(R.id.btnDataSewa);
-        mbtnStatistik = findViewById(R.id.btnStatistik);
+//        mbtnDataSewa = findViewById(R.id.btnDataSewa);
+        mbtnDataPelanggan = findViewById(R.id.btnDataPelanggan);
         mbtnKeluar = findViewById(R.id.btnKeluar);
 
         mbtnAbout.setOnClickListener(new MenuAbout());
         mbtnDataSepeda.setOnClickListener(new MenuDataSepeda());
         mbtnKeluar.setOnClickListener(new MenuKeluar());
+//        mbtnDataSewa.setOnClickListener(new MenuDataPelanggan());
+        mbtnDataPelanggan.setOnClickListener(new MenuDataPelanggan());
     }
 
     private class MenuAbout implements View.OnClickListener {
@@ -40,6 +42,22 @@ public class main_menu extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(main_menu.this, ListSepedaActivity.class);
+            startActivity(i);
+        }
+    }
+
+//    private class MenuDataSewa implements View.OnClickListener {
+//        @Override
+//        public void onClick(View view) {
+//            Intent i = new Intent(main_menu.this, ListPelangganActivity.class);
+//            startActivity(i);
+//        }
+//    }
+
+    private class MenuDataPelanggan implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(main_menu.this, ListPelangganActivity.class);
             startActivity(i);
         }
     }

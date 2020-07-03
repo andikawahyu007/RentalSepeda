@@ -4,19 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="3dp"
-    app:cardElevation="3dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="105dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <ImageView
-            android:id="@+id/ImgRowGambar"
+            android:id="@+id/ImgBrsItem"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/logo" />
@@ -28,24 +29,28 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtRowNama"
+                android:id="@+id/txtBrsNama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/custom"
+                android:gravity="center"
                 android:padding="5dp"
-                android:text="Nama Sepeda"
+                android:text="Nama Pelanggan"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtRowHarga"
+                android:id="@+id/txtBrsAlamat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/custom"
+                android:gravity="center"
                 android:padding="5dp"
-                android:text="Harga/hari"
+                android:text="Alamat"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold" />

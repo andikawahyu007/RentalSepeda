@@ -7,20 +7,20 @@
     android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".ListSepedaActivity">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/listSepeda"
+            android:id="@+id/listPelanggan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#FF7D00" />
 
         <ImageButton
-            android:id="@+id/btnLihatSepeda"
+            android:id="@+id/btnTmbPelanggan"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentRight="true"

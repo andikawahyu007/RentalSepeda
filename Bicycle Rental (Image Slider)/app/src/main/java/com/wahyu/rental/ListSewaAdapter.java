@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListSepedaAdapter extends BaseAdapter {
+public class ListSewaAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
     private ArrayList<Sepeda> recordList;
 
-    public ListSepedaAdapter(Context context, int layout, ArrayList<Sepeda> recordList) {
+    public ListSewaAdapter(Context context, int layout, ArrayList<Sepeda> recordList) {
         this.context = context;
         this.layout = layout;
         this.recordList = recordList;

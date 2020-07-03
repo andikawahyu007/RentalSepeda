@@ -22,6 +22,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
+
 public class tambah_sepeda extends AppCompatActivity {
 
     EditText mEdtNama, mEdtHarga, mEdtKeterangan;
@@ -43,9 +45,9 @@ public class tambah_sepeda extends AppCompatActivity {
         mBtnTmbSepeda = findViewById(R.id.btnTmbSepeda);
         mImageAdd = findViewById(R.id.imgTmbSepeda);
 
-        mSQLiteHelper = new SQLiteHelper(this, "Data_SepedaDB.sqlite", null, 1);
+        mSQLiteHelper = SQLiteHelper.getInstance(this);
 
-        mSQLiteHelper.queryData("CREATE TABLE IF NOT EXISTS Data_Sepeda(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB)");
+//        mSQLiteHelper.queryData();
 
         mImageAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +60,7 @@ public class tambah_sepeda extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    mSQLiteHelper.insertData(
+                    mSQLiteHelper.insertDataSepeda(
                             mEdtNama.getText().toString().trim(),
                             Integer.parseInt(mEdtHarga.getText().toString().trim()),
                             mEdtKeterangan.getText().toString().trim(),
@@ -70,6 +72,7 @@ public class tambah_sepeda extends AppCompatActivity {
                     mEdtHarga.setText("");
                     mEdtKeterangan.setText("");
                     mImageAdd.setImageResource(R.drawable.add);
+                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
