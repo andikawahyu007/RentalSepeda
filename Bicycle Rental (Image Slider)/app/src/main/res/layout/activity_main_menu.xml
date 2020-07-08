@@ -74,7 +74,7 @@
                     android:layout_height="121dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/logo_about" />
+                    android:background="@drawable/adduser" />
 
                 <ImageButton
                     android:id="@+id/btnKeluar"

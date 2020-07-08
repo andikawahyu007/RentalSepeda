@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#E13CE1">
+    android:background="#FFFFFF">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,46 +12,49 @@
         android:padding="15dp">
 
         <ImageView
-            android:id="@+id/detGambar"
+            android:id="@+id/dlgGambarSewa"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/detNama"
+            android:id="@+id/dlgDisewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detGambar"
+            android:layout_below="@id/dlgGambarSewa"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom"
             android:gravity="center"
-            android:text="Nama Sepeda"
+            android:padding="5dp"
+            android:text="Sepeda yang disewa"
             android:textColor="#FFFFFF"
             android:textSize="28sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/detHarga"
+            android:id="@+id/dlgPenyewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detNama"
+            android:layout_below="@id/dlgDisewa"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
-            android:text="Harga Sepeda"
+            android:padding="5dp"
+            android:text="Nama Penyewa"
             android:textColor="#FFFFFF"
             android:textSize="26sp" />
 
         <TextView
-            android:id="@+id/detKet"
+            android:id="@+id/dlgTglSewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detHarga"
+            android:layout_below="@id/dlgPenyewa"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
-            android:text="Keterangan"
+            android:padding="5dp"
+            android:text="Tanggal Sewa"
             android:textColor="#FFFFFF"
             android:textSize="26sp" />
 

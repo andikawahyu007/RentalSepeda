@@ -55,7 +55,7 @@ public class ListPelangganActivity extends AppCompatActivity {
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_PELANGGAN+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -64,7 +64,7 @@ public class ListPelangganActivity extends AppCompatActivity {
             String keterangan = cursor.getString(3);
 
             //add to list
-            Pelanggan newPelanggan = new Pelanggan(id, nama,alamat, keterangan);
+            Pelanggan newPelanggan = new Pelanggan(id, nama, alamat, keterangan);
             Gson gson = new Gson();
 //            newPelanggan.setGambar(img);
 //            String Pelanggan = gson.toJson(newPelanggan).toString();
@@ -92,7 +92,7 @@ public class ListPelangganActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
                             //update
-                            Cursor c = mSQLiteHelper.getData("SELECT id FROM "+TABLE_PELANGGAN+"");
+                            Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_PELANGGAN + "");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()) {
                                 arrID.add(c.getInt(0));
@@ -111,7 +111,7 @@ public class ListPelangganActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //read
-                Cursor c = mSQLiteHelper.getData("SELECT id FROM "+TABLE_PELANGGAN+"");
+                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_PELANGGAN + "");
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
                 while (c.moveToNext()) {
                     arrID.add(c.getInt(0));
@@ -134,7 +134,7 @@ public class ListPelangganActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_PELANGGAN+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -143,7 +143,7 @@ public class ListPelangganActivity extends AppCompatActivity {
             String keterangan = cursor.getString(3);
 
             //add to list
-            Pelanggan newPelanggan = new Pelanggan(id, nama,alamat, keterangan);
+            Pelanggan newPelanggan = new Pelanggan(id, nama, alamat, keterangan);
 //            Gson gson = new Gson();
 //            newPelanggan.setGambar(img);
 //            String Pelanggan = gson.toJson(newPelanggan).toString();
@@ -180,7 +180,7 @@ public class ListPelangganActivity extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_PELANGGAN+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -189,7 +189,7 @@ public class ListPelangganActivity extends AppCompatActivity {
             String keterangan = cursor.getString(3);
 
             //add to list
-            Pelanggan newPelanggan = new Pelanggan(id, nama,alamat, keterangan);
+            Pelanggan newPelanggan = new Pelanggan(id, nama, alamat, keterangan);
         }
         mAdapter.notifyDataSetChanged();
     }
@@ -198,20 +198,19 @@ public class ListPelangganActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_detail_pelanggan);
 
-        final TextView edtUpdNama = dialog.findViewById(R.id.detNama);
-        final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
-        final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
+        final TextView dlgNamaPel = dialog.findViewById(R.id.dlgNamaPel);
+        final TextView dlgAlamat = dialog.findViewById(R.id.dlgAlamat);
+        final TextView dlgKetPel = dialog.findViewById(R.id.dlgKetPel);
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_PELANGGAN+" WHERE id=" + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);
-            edtUpdNama.setText(nama);
-            int harga = cursor.getInt(2);
-            edtUpdHarga.setText(harga + "");
+            dlgNamaPel.setText(nama);
+            String alamat = cursor.getString(2);
+            dlgAlamat.setText(alamat);
             String keterangan = cursor.getString(3);
-            edtUpdKet.setText(keterangan);
-
+            dlgKetPel.setText(keterangan);
         }
 
         //set width of dialog
@@ -221,9 +220,6 @@ public class ListPelangganActivity extends AppCompatActivity {
         dialog.getWindow().setLayout(width, height);
         dialog.show();
     }
-
-
-
 
 
 }

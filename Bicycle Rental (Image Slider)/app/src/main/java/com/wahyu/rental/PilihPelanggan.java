@@ -179,9 +179,9 @@ public class PilihPelanggan extends AppCompatActivity {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_detail_pelanggan);
 
-        final TextView edtUpdNama = dialog.findViewById(R.id.detNamaPelanggan);
-        final TextView edtUpdAlamat = dialog.findViewById(R.id.detAlamat);
-        final TextView edtUpdKet = dialog.findViewById(R.id.detKetPelanggan);
+        final TextView edtUpdNama = dialog.findViewById(R.id.dlgNamaPel);
+        final TextView edtUpdAlamat = dialog.findViewById(R.id.dlgAlamat);
+        final TextView edtUpdKet = dialog.findViewById(R.id.dlgKetPel);
         final Button btnSewa = dialog.findViewById(R.id.btnSimpanSewa);
 
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE id=" + position);

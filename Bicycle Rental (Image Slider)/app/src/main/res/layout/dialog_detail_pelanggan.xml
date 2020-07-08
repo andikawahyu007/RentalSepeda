@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#E13CE1">
+    android:background="#FFFFFF">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,44 +11,49 @@
         android:layout_gravity="center"
         android:padding="15dp">
 
-        <EditText
-            android:id="@+id/detNamaPelanggan"
+        <TextView
+            android:id="@+id/dlgNamaPel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/custom"
             android:gravity="center"
-            android:hint="Nama Pelanggan"
+            android:padding="5dp"
+            android:text="Nama Pelanggan"
+            android:textColor="#FFFFFF"
             android:textSize="28sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/detAlamat"
+        <TextView
+            android:id="@+id/dlgAlamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detNamaPelanggan"
+            android:layout_below="@id/dlgNamaPel"
             android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/custom"
             android:gravity="center"
-            android:hint="Alamat"
+            android:padding="5dp"
+            android:text="Alamat"
+            android:textColor="#FFFFFF"
             android:textSize="26sp" />
 
-        <EditText
-            android:id="@+id/detKetPelanggan"
+        <TextView
+            android:id="@+id/dlgKetPel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detAlamat"
+            android:layout_below="@id/dlgAlamat"
             android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/custom"
             android:gravity="center"
-            android:hint="Keterangan"
+            android:padding="5dp"
+            android:text="Keterangan"
+            android:textColor="#FFFFFF"
             android:textSize="26sp" />
 
         <Button
             android:id="@+id/btnSimpanSewa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detKetPelanggan"
+            android:layout_below="@id/dlgKetPel"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom"
