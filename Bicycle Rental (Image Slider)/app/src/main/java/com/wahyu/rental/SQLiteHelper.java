@@ -19,7 +19,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static String TABLE_PELANGGAN = "Data_Pelanggan";
     public static String TABLE_SEWA = "Data_Transaksi_Sewa";
     private static int version_db = 5;
-    private static String name_db = "Data_SepedaDB.sqlite";
+    private static String name_db = "RENTALDB.sqlite";
     private static SQLiteHelper instance = null;
 
     public static SQLiteHelper getInstance(Context ctx) {
@@ -37,7 +37,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void insertDataSepeda(String nama, int harga, String keterangan, byte[] gambar) {
         SQLiteDatabase database = getWritableDatabase();
         //query to insert record in database table
-        String sql = "INSERT INTO Data_Sepeda VALUES(NULL, ?, ?, ?, ?, 0)"; //where "Data_Sepeda" is table name in database we will create in mainActivity
+        String sql = "INSERT INTO " + TABLE_SEPEDA + " VALUES(NULL, ?, ?, ?, ?, ?)"; //where "" + TABLE_SEPEDA + "" is table name in database we will create in mainActivity
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
@@ -46,6 +46,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.bindLong(2, harga);
         statement.bindString(3, keterangan);
         statement.bindBlob(4, gambar);
+        statement.bindLong(5, 0);
 
         statement.executeInsert();
     }
@@ -53,7 +54,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void insertDataPelanggan(String nama, String alamat, String keterangan) {
         SQLiteDatabase database = getWritableDatabase();
         //query to insert record in database table
-        String sql = "INSERT INTO Data_Pelanggan VALUES(NULL, ?, ?, ?)"; //where "Data_Sepeda" is table name in database we will create in mainActivity
+        String sql = "INSERT INTO " + TABLE_PELANGGAN + " VALUES(NULL, ?, ?, ?, ?)"; //where "" + TABLE_SEPEDA + "" is table name in database we will create in mainActivity
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
@@ -61,14 +62,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.bindString(1, nama);
         statement.bindString(2, alamat);
         statement.bindString(3, keterangan);
-
+        statement.bindLong(4, 0);
         statement.executeInsert();
     }
 
     public void insertDataSewa(String nama_sepeda, String nama_penyewa, String tanggal, byte[] gambar) {
         SQLiteDatabase database = getWritableDatabase();
         //query to insert record in database table
-        String sql = "INSERT INTO " + TABLE_SEWA + " VALUES(NULL, ?, ?, ?, ?)"; //where "Data_Sepeda" is table name in database we will create in mainActivity
+        String sql = "INSERT INTO " + TABLE_SEWA + " VALUES(NULL, ?, ?, ?, ?)";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
@@ -84,7 +85,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void updateData(String nama, int harga, String keterangan, byte[] gambar, int id) {
         SQLiteDatabase database = getWritableDatabase();
         //query to update record
-        String sql = "UPDATE Data_Sepeda SET nama=?, harga=?, keterangan=?, gambar=? WHERE id=?";
+        String sql = "UPDATE " + TABLE_SEPEDA + " SET nama=?, harga=?, keterangan=?, gambar=? WHERE id=?";
 
         SQLiteStatement statement = database.compileStatement(sql);
 
@@ -98,13 +99,26 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public void updateStatusSepeda(int terpinjam, int id) {
+    public void updateStatusSepeda(int status, int id) {
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "UPDATE Data_Sepeda SET terpinjam=? WHERE id=?";
+        String sql = "UPDATE " + TABLE_SEPEDA + " SET status=? WHERE id=?";
 
         SQLiteStatement statement = database.compileStatement(sql);
 
-        statement.bindLong(1, terpinjam);
+        statement.bindLong(1, status);
+        statement.bindLong(2, id);
+
+        statement.execute();
+        database.close();
+    }
+
+    public void updateStatusPelanggan(int status, int id) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE " + TABLE_PELANGGAN + " SET status=? WHERE id=?";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+
+        statement.bindLong(1, status);
         statement.bindLong(2, id);
 
         statement.execute();
@@ -113,7 +127,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void deleteData(int id) {
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "DELETE FROM Data_Sepeda WHERE id=?";
+        String sql = "DELETE FROM " + TABLE_SEPEDA + " WHERE id=?";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
@@ -130,15 +144,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEPEDA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB, terpinjam INTEGER)");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PELANGGAN + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, alamat INTEGER, keterangan VARCHAR)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEPEDA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB, status INTEGER)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PELANGGAN + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, alamat INTEGER, keterangan VARCHAR, status INTEGER)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEWA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_sepeda VARCHAR, nama_penyewa VARCHAR, tgl_sewa VARCHAR, gambar BLOB)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEPEDA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB, terpinjam INTEGER)");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PELANGGAN + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, alamat INTEGER, keterangan VARCHAR)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEPEDA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB, status INTEGER)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PELANGGAN + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, alamat INTEGER, keterangan VARCHAR, status INTEGER)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEWA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_sepeda VARCHAR, nama_penyewa VARCHAR, tgl_sewa VARCHAR, gambar BLOB)");
 
     }

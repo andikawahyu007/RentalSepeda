@@ -22,7 +22,7 @@
             android:background="@drawable/custom"
             android:gravity="center"
             android:padding="10dp"
-            android:text="PILIH PELANGGAN"
+            android:text="PILIH\nPELANGGAN"
             android:textColor="#FFFFFF"
             android:textSize="40dp"
             android:textStyle="bold" />

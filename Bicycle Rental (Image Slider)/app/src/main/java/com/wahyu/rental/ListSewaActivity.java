@@ -67,7 +67,7 @@ public class ListSewaActivity extends AppCompatActivity {
             byte[] gambar = cursor.getBlob(4);
             //add to list
             Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
-            Gson gson = new Gson();
+//            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
@@ -206,10 +206,10 @@ public class ListSewaActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_detail_sewa);
 
-        imageViewIcon = dialog.findViewById(R.id.detGambar);
-        final TextView edtUpdNama = dialog.findViewById(R.id.detNama);
-        final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
-        final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
+        imageViewIcon = dialog.findViewById(R.id.dlgGambarSewa);
+        final TextView edtUpdNama = dialog.findViewById(R.id.dlgDisewa);
+        final TextView edtUpdHarga = dialog.findViewById(R.id.dlgPenyewa);
+        final TextView dlgTglSewa = dialog.findViewById(R.id.dlgTglSewa);
 
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
@@ -219,7 +219,7 @@ public class ListSewaActivity extends AppCompatActivity {
             int harga = cursor.getInt(2);
             edtUpdHarga.setText(harga + "");
             String keterangan = cursor.getString(3);
-            edtUpdKet.setText(keterangan);
+            dlgTglSewa.setText(keterangan);
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }

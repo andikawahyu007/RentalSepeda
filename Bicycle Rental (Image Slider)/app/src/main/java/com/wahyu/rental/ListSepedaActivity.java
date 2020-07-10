@@ -42,7 +42,7 @@ public class ListSepedaActivity extends AppCompatActivity {
     ImageView imageViewIcon;
     private static final String TAG = "ListSepedaActivity";
     public static SQLiteHelper mSQLiteHelper;
-    ImageButton mLihatSepeda;
+    ImageButton mTambahSepeda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +50,13 @@ public class ListSepedaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_sepeda);
 
         mListView = findViewById(R.id.listSepeda);
-        mLihatSepeda = findViewById(R.id.btnLihatSepeda);
+        mTambahSepeda = findViewById(R.id.btnLihatSepeda);
         mList = new ArrayList<>();
         mAdapter = new ListSepedaAdapter(this, R.layout.baris_item_sepeda, mList);
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -66,7 +66,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             byte[] gambar = cursor.getBlob(4);
             //add to list
             Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
-            Gson gson = new Gson();
+//            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
@@ -78,7 +78,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             Toast.makeText(this, "Maaf, Tidak Ada Data Sepeda Yang Ditemukan", Toast.LENGTH_SHORT).show();
         }
 
-        mLihatSepeda.setOnClickListener(new TambahSepeda());
+        mTambahSepeda.setOnClickListener(new TambahSepeda());
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class ListSepedaActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
                             //update
-                            Cursor c = mSQLiteHelper.getData("SELECT id FROM "+TABLE_SEPEDA+"");
+                            Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEPEDA + "");
                             ArrayList<Integer> arrID = new ArrayList<Integer>();
                             while (c.moveToNext()) {
                                 arrID.add(c.getInt(0));
@@ -112,7 +112,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //read
-                Cursor c = mSQLiteHelper.getData("SELECT id FROM "+TABLE_SEPEDA+"");
+                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEPEDA + "");
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
                 while (c.moveToNext()) {
                     arrID.add(c.getInt(0));
@@ -135,7 +135,7 @@ public class ListSepedaActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -181,7 +181,7 @@ public class ListSepedaActivity extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -204,7 +204,7 @@ public class ListSepedaActivity extends AppCompatActivity {
         final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
         final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+" WHERE id=" + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);

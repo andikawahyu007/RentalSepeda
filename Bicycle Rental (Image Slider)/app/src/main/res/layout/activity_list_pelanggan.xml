@@ -21,7 +21,7 @@
             android:background="@drawable/custom"
             android:gravity="center"
             android:padding="10dp"
-            android:text="DATA PELANGGAN"
+            android:text="DATA\nPELANGGAN"
             android:textColor="#FFFFFF"
             android:textSize="40dp"
             android:textStyle="bold" />

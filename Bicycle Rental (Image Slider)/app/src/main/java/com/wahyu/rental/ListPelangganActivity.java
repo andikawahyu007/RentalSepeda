@@ -55,7 +55,7 @@ public class ListPelangganActivity extends AppCompatActivity {
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -134,7 +134,7 @@ public class ListPelangganActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -180,7 +180,7 @@ public class ListPelangganActivity extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);

@@ -51,7 +51,7 @@ public class PilihPelanggan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_pelanggan);
+        setContentView(R.layout.activity_pilih_pelanggan);
 
         mListView = findViewById(R.id.listPelanggan);
         mList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class PilihPelanggan extends AppCompatActivity {
             sepeda = new Sepeda(id, nama, harga, keterangan, gambar, terpinjam);
         }
         //get all data from sqlite
-        cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
+        cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -100,7 +100,7 @@ public class PilihPelanggan extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //read
-                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_PELANGGAN + "");
+                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_PELANGGAN + " WHERE status = 0");
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
                 while (c.moveToNext()) {
                     arrID.add(c.getInt(0));
@@ -115,7 +115,7 @@ public class PilihPelanggan extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -161,7 +161,7 @@ public class PilihPelanggan extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + "");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -209,6 +209,7 @@ public class PilihPelanggan extends AppCompatActivity {
                 }
                 try {
                     mSQLiteHelper.updateStatusSepeda(1, sepeda.getId());
+                    mSQLiteHelper.updateStatusPelanggan(1, pelanggan.getId());
                     Toast.makeText(view.getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
                     Intent Sewa = new Intent(view.getContext(), ListSewaActivity.class);
                     view.getContext().startActivity(Sewa);
