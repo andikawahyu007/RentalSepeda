@@ -85,7 +85,7 @@ public class ListSewaActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
                 //alert dialog to display options of update and delete
-                final CharSequence[] items = {"Hapus"};
+                final CharSequence[] items = {"Sudah Kembali"};
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ListSewaActivity.this);
 
@@ -159,20 +159,20 @@ public class ListSewaActivity extends AppCompatActivity {
     private void showDialogDelete(final int idRecord) {
         AlertDialog.Builder dialogDelete = new AlertDialog.Builder(ListSewaActivity.this);
         dialogDelete.setTitle("PERINGATAN!!!");
-        dialogDelete.setMessage("Apakah Anda Yakin Untuk Menghapus Data Sepeda Ini ??");
-        dialogDelete.setPositiveButton("IYA", new DialogInterface.OnClickListener() {
+        dialogDelete.setMessage("Apakah sepeda memang sudah kembali ??");
+        dialogDelete.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
                     mSQLiteHelper.deleteData(idRecord);
-                    Toast.makeText(ListSewaActivity.this, "Data Sepeda Berhasil Dihapus", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListSewaActivity.this, "Sepeda dapat disewakan kembali.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());
                 }
                 updateRecordList();
             }
         });
-        dialogDelete.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+        dialogDelete.setNegativeButton("Belum", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
@@ -207,17 +207,17 @@ public class ListSewaActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_detail_sewa);
 
         imageViewIcon = dialog.findViewById(R.id.dlgGambarSewa);
-        final TextView edtUpdNama = dialog.findViewById(R.id.dlgDisewa);
-        final TextView edtUpdHarga = dialog.findViewById(R.id.dlgPenyewa);
+        final TextView dlgDisewa = dialog.findViewById(R.id.dlgDisewa);
+        final TextView dlgPenyewa = dialog.findViewById(R.id.dlgPenyewa);
         final TextView dlgTglSewa = dialog.findViewById(R.id.dlgTglSewa);
 
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String nama = cursor.getString(1);
-            edtUpdNama.setText(nama);
-            int harga = cursor.getInt(2);
-            edtUpdHarga.setText(harga + "");
+            String nama_sepeda = cursor.getString(1);
+            dlgDisewa.setText(nama_sepeda);
+            String penyewa = cursor.getString(2);
+            dlgPenyewa.setText(penyewa + "");
             String keterangan = cursor.getString(3);
             dlgTglSewa.setText(keterangan);
             byte[] gambar = cursor.getBlob(4);

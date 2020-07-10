@@ -199,8 +199,11 @@ public class PilihPelanggan extends AppCompatActivity {
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                java.util.Date sekarang = new java.util.Date();
+                java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
+
                 try {
-                    mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), "12-12-12", sepeda.getGambar());
+                    mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), kalender.format(sekarang), sepeda.getGambar());
 
                 } catch (Throwable t) {
                     t.printStackTrace();
