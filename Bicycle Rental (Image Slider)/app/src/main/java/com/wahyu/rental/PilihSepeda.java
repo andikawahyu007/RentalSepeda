@@ -55,7 +55,7 @@ public class PilihSepeda extends AppCompatActivity {
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -76,23 +76,22 @@ public class PilihSepeda extends AppCompatActivity {
             //if there is no record in table of database which means listview is empty
             Toast.makeText(this, "Maaf, Tidak Ada Data Sepeda Yang Ditemukan", Toast.LENGTH_SHORT).show();
         }
-        
+
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //read
-                Cursor c = mSQLiteHelper.getData("SELECT id FROM "+TABLE_SEPEDA+"");
+                Cursor c = mSQLiteHelper.getData("SELECT id FROM " + TABLE_SEPEDA + " WHERE status = 0");
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
                 while (c.moveToNext()) {
                     arrID.add(c.getInt(0));
                 }
                 //show detail dialog
-                Intent pilihPelanggan = new Intent(view.getContext(),PilihPelanggan.class);
-                pilihPelanggan.putExtra(PilihPelanggan.EXTRA_ID_SEPEDA,arrID.get(i));
+                Intent pilihPelanggan = new Intent(view.getContext(), PilihPelanggan.class);
+                pilihPelanggan.putExtra(PilihPelanggan.EXTRA_ID_SEPEDA, arrID.get(i));
                 view.getContext().startActivity(pilihPelanggan);
-
             }
         });
     }
@@ -101,7 +100,7 @@ public class PilihSepeda extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -147,7 +146,7 @@ public class PilihSepeda extends AppCompatActivity {
 
     private void updateRecordList() {
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+"");
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -170,7 +169,7 @@ public class PilihSepeda extends AppCompatActivity {
         final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
         final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM "+TABLE_SEPEDA+" WHERE id=" + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);

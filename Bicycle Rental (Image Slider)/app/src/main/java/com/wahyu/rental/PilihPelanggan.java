@@ -204,7 +204,6 @@ public class PilihPelanggan extends AppCompatActivity {
 
                 try {
                     mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), kalender.format(sekarang), sepeda.getGambar());
-
                 } catch (Throwable t) {
                     t.printStackTrace();
                     Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
@@ -216,6 +215,8 @@ public class PilihPelanggan extends AppCompatActivity {
                     Toast.makeText(view.getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
                     Intent Sewa = new Intent(view.getContext(), ListSewaActivity.class);
                     view.getContext().startActivity(Sewa);
+                    Intent i = new Intent(PilihPelanggan.this, ListSewaActivity.class);
+                    startActivity(i);
                     finish();
                 } catch (Throwable t) {
                     t.printStackTrace();
