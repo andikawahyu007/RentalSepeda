@@ -161,7 +161,7 @@ public class ListPelangganActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
-                    mSQLiteHelper.deleteData(idRecord);
+                    mSQLiteHelper.deleteDataPelanggan(idRecord);
                     Toast.makeText(ListPelangganActivity.this, "Data Pelanggan Berhasil Dihapus", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());
