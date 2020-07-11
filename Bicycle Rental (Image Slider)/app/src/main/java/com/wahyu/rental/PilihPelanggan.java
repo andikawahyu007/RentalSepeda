@@ -33,7 +33,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import static com.wahyu.rental.SQLiteHelper.TABLE_PELANGGAN;
-import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
 
 public class PilihPelanggan extends AppCompatActivity {
 
@@ -43,7 +42,6 @@ public class PilihPelanggan extends AppCompatActivity {
     byte[] img = {};
     private static final String TAG = "PilihPelanggan";
     public static SQLiteHelper mSQLiteHelper;
-    public static String EXTRA_ID_SEPEDA = "extra_id_sepeda";
     private int id_sepeda;
     private Sepeda sepeda;
     private Pelanggan pelanggan;
@@ -58,21 +56,8 @@ public class PilihPelanggan extends AppCompatActivity {
         mAdapter = new ListPelangganAdapter(this, R.layout.baris_item_pelanggan, mList);
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
-        if (getIntent() != null) {
-            id_sepeda = getIntent().getIntExtra(EXTRA_ID_SEPEDA, -1);
-        }
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE id=" + id_sepeda);
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String nama = cursor.getString(1);
-            int harga = cursor.getInt(2);
-            String keterangan = cursor.getString(3);
-            byte[] gambar = cursor.getBlob(4);
-            int terpinjam = cursor.getInt(5);
-            sepeda = new Sepeda(id, nama, harga, keterangan, gambar, terpinjam);
-        }
-        //get all data from sqlite
-        cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
+
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -106,7 +91,9 @@ public class PilihPelanggan extends AppCompatActivity {
                     arrID.add(c.getInt(0));
                 }
                 //show detail dialog
-                showDialogDetail(PilihPelanggan.this, arrID.get(i));
+                Intent pilihSepeda = new Intent(view.getContext(), PilihSepeda.class);
+                pilihSepeda.putExtra(PilihSepeda.EXTRA_ID_PELANGGAN, arrID.get(i));
+                view.getContext().startActivity(pilihSepeda);
 
             }
         });
@@ -150,62 +137,62 @@ public class PilihPelanggan extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void showDialogDetail(Activity activity, final int position) {
-        final Dialog dialog = new Dialog(activity);
-        dialog.setContentView(R.layout.dialog_detail_pelanggan);
-
-        final TextView edtUpdNama = dialog.findViewById(R.id.dlgNamaPel);
-        final TextView edtUpdAlamat = dialog.findViewById(R.id.dlgAlamat);
-        final TextView edtUpdKet = dialog.findViewById(R.id.dlgKetPel);
-        final Button btnSewa = dialog.findViewById(R.id.btnSimpanSewa);
-
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE id=" + position);
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String nama = cursor.getString(1);
-            edtUpdNama.setText(nama);
-            String alamat = cursor.getString(2);
-            edtUpdAlamat.setText(alamat + "");
-            String keterangan = cursor.getString(3);
-            edtUpdKet.setText(keterangan);
-            pelanggan = new Pelanggan(id, nama, alamat, keterangan);
-        }
-
-        btnSewa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                java.util.Date sekarang = new java.util.Date();
-                java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
-
-                try {
-                    mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), kalender.format(sekarang), sepeda.getGambar());
-                } catch (Throwable t) {
-                    t.printStackTrace();
-                    Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                try {
-                    mSQLiteHelper.updateStatusSepeda(1, sepeda.getId());
-                    mSQLiteHelper.updateStatusPelanggan(1, pelanggan.getId());
-                    Toast.makeText(view.getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
-                    Intent Sewa = new Intent(view.getContext(), ListSewaActivity.class);
-                    view.getContext().startActivity(Sewa);
-                    Intent i = new Intent(PilihPelanggan.this, ListSewaActivity.class);
-                    startActivity(i);
-                    finish();
-                } catch (Throwable t) {
-                    t.printStackTrace();
-                    Toast.makeText(view.getContext(), "Data gagal disimpan", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        //set width of dialog
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
-        //set height of dialog
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
-        dialog.getWindow().setLayout(width, height);
-
-        dialog.show();
-    }
+//    private void showDialogDetail(Activity activity, final int position) {
+//        final Dialog dialog = new Dialog(activity);
+//        dialog.setContentView(R.layout.dialog_detail_pelanggan);
+//
+//        final TextView edtUpdNama = dialog.findViewById(R.id.dlgNamaPel);
+//        final TextView edtUpdAlamat = dialog.findViewById(R.id.dlgAlamat);
+//        final TextView edtUpdKet = dialog.findViewById(R.id.dlgKetPel);
+//        final Button btnSewa = dialog.findViewById(R.id.btnSimpanSewa);
+//
+//        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE id=" + position);
+//        while (cursor.moveToNext()) {
+//            int id = cursor.getInt(0);
+//            String nama = cursor.getString(1);
+//            edtUpdNama.setText(nama);
+//            String alamat = cursor.getString(2);
+//            edtUpdAlamat.setText(alamat + "");
+//            String keterangan = cursor.getString(3);
+//            edtUpdKet.setText(keterangan);
+//            pelanggan = new Pelanggan(id, nama, alamat, keterangan);
+//        }
+//
+//        btnSewa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                java.util.Date sekarang = new java.util.Date();
+//                java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
+//
+//                try {
+//                    mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), kalender.format(sekarang), sepeda.getGambar());
+//                } catch (Throwable t) {
+//                    t.printStackTrace();
+//                    Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                try {
+//                    mSQLiteHelper.updateStatusSepeda(1, sepeda.getId());
+//                    mSQLiteHelper.updateStatusPelanggan(1, pelanggan.getId());
+//                    Toast.makeText(view.getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+//                    Intent Sewa = new Intent(view.getContext(), ListSewaActivity.class);
+//                    view.getContext().startActivity(Sewa);
+//                    Intent i = new Intent(PilihPelanggan.this, ListSewaActivity.class);
+//                    startActivity(i);
+//                    finish();
+//                } catch (Throwable t) {
+//                    t.printStackTrace();
+//                    Toast.makeText(view.getContext(), "Data gagal disimpan", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        //set width of dialog
+//        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+//        //set height of dialog
+//        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
+//        dialog.getWindow().setLayout(width, height);
+//
+//        dialog.show();
+//    }
 }
