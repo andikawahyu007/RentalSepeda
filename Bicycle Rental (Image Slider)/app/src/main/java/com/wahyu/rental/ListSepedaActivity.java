@@ -162,7 +162,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
-                    mSQLiteHelper.deleteData(idRecord);
+                    mSQLiteHelper.deleteDataSepeda(idRecord);
                     Toast.makeText(ListSepedaActivity.this, "Data Sepeda Berhasil Dihapus", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());

@@ -125,9 +125,33 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public void deleteData(int id) {
+    public void deleteDataSepeda(int id) {
         SQLiteDatabase database = getWritableDatabase();
         String sql = "DELETE FROM " + TABLE_SEPEDA + " WHERE id=?";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindLong(1, id);
+
+        statement.execute();
+        database.close();
+    }
+
+    public void deleteDataPelanggan(int id) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "DELETE FROM " + TABLE_PELANGGAN + " WHERE id=?";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindLong(1, id);
+
+        statement.execute();
+        database.close();
+    }
+
+    public void deleteDataSewa(int id) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "DELETE FROM " + TABLE_SEWA + " WHERE id=?";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();

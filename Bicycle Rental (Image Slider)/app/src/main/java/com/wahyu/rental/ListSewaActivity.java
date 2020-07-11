@@ -164,7 +164,9 @@ public class ListSewaActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
-                    mSQLiteHelper.deleteData(idRecord);
+                    mSQLiteHelper.updateStatusSepeda(0, idRecord);
+                    mSQLiteHelper.updateStatusPelanggan(0, idRecord);
+                    mSQLiteHelper.deleteDataSewa(idRecord);
                     Toast.makeText(ListSewaActivity.this, "Sepeda dapat disewakan kembali.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());

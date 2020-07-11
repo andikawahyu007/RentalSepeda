@@ -119,31 +119,6 @@ public class PilihSepeda extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void showDialogDelete(final int idRecord) {
-        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(PilihSepeda.this);
-        dialogDelete.setTitle("PERINGATAN!!!");
-        dialogDelete.setMessage("Apakah Anda Yakin Untuk Menghapus Data Sepeda Ini ??");
-        dialogDelete.setPositiveButton("IYA", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                try {
-                    mSQLiteHelper.deleteData(idRecord);
-                    Toast.makeText(PilihSepeda.this, "Data Sepeda Berhasil Dihapus", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Log.e("ERROR", e.getMessage());
-                }
-                updateRecordList();
-            }
-        });
-        dialogDelete.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        dialogDelete.show();
-    }
-
     private void updateRecordList() {
         //get all data from sqlite
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");

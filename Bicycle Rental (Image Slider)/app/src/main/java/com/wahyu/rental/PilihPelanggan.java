@@ -134,31 +134,6 @@ public class PilihPelanggan extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void showDialogDelete(final int idRecord) {
-        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(PilihPelanggan.this);
-        dialogDelete.setTitle("PERINGATAN!!!");
-        dialogDelete.setMessage("Apakah Anda Yakin Untuk Menghapus Data Pelanggan Ini ??");
-        dialogDelete.setPositiveButton("IYA", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                try {
-                    mSQLiteHelper.deleteData(idRecord);
-                    Toast.makeText(PilihPelanggan.this, "Data Pelanggan Berhasil Dihapus", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Log.e("ERROR", e.getMessage());
-                }
-                updateRecordList();
-            }
-        });
-        dialogDelete.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        dialogDelete.show();
-    }
-
     private void updateRecordList() {
         //get all data from sqlite
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
