@@ -12,31 +12,32 @@
         android:padding="15dp">
 
         <ImageView
-            android:id="@+id/dlgSepedaSewa"
+            android:id="@+id/dlgImgSepedaOrder"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/dlgSepedaDisewa"
+            android:id="@+id/dlgSepedaDiOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgSepedaSewa"
+            android:layout_below="@id/dlgImgSepedaOrder"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Sepeda yang disewa"
+            android:text="Sepeda yang diOrder"
             android:textColor="#FFFFFF"
             android:textSize="28sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/dlgNamaPenyewa"
+            android:id="@+id/dlgPenyewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgSepedaDisewa"
+            android:layout_below="@id/dlgSepedaDiOrder"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
@@ -46,56 +47,42 @@
             android:textSize="26sp" />
 
         <TextView
-            android:id="@+id/dlgTglDisewa"
+            android:id="@+id/dlgTglDiOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgNamaPenyewa"
+            android:layout_below="@id/dlgPenyewa"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Tanggal Sewa"
+            android:text="Tanggal Order"
             android:textColor="#FFFFFF"
             android:textSize="26sp" />
 
         <TextView
-            android:id="@+id/dlgTglKembali"
+            android:id="@+id/dlgBiayaOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgTglDisewa"
+            android:layout_below="@id/dlgTglDiOrder"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Tanggal Kembali"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp" />
-
-        <TextView
-            android:id="@+id/dlgBiayaSewa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/dlgTglKembali"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Biaya Sewa"
+            android:text="Biaya Order"
             android:textColor="#FFFFFF"
             android:textSize="26sp" />
 
         <Button
-            android:id="@+id/btnBayar"
+            android:id="@+id/btnSimpanOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgBiayaSewa"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/dlgBiayaOrder"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom"
-            android:textColor="#FFFFFF"
-            android:textSize="25dp"
-            android:text="OK" />
+            android:gravity="center"
+            android:text="Simpan"
+            android:textColor="#FFFFFF" />
 
     </RelativeLayout>
 

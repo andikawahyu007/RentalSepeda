@@ -12,17 +12,18 @@
         android:padding="15dp">
 
         <ImageView
-            android:id="@+id/dlgGambarSewa"
+            android:id="@+id/dlgImgSepedaSewa"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/dlgDisewa"
+            android:id="@+id/dlgSepedaDisewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgGambarSewa"
+            android:layout_below="@id/dlgImgSepedaSewa"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom"
             android:gravity="center"
@@ -33,10 +34,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/dlgPenyewa"
+            android:id="@+id/dlgNamaPenyewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgDisewa"
+            android:layout_below="@id/dlgSepedaDisewa"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
@@ -46,15 +47,28 @@
             android:textSize="26sp" />
 
         <TextView
-            android:id="@+id/dlgTglSewa"
+            android:id="@+id/dlgTglDisewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dlgPenyewa"
+            android:layout_below="@id/dlgNamaPenyewa"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
             android:gravity="center"
             android:padding="5dp"
             android:text="Tanggal Sewa"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/dlgBiayaSewa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dlgTglDisewa"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Biaya Sewa"
             android:textColor="#FFFFFF"
             android:textSize="26sp" />
 

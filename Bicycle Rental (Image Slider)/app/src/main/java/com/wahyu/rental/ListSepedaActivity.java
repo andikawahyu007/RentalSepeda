@@ -210,7 +210,7 @@ public class ListSepedaActivity extends AppCompatActivity {
             String nama = cursor.getString(1);
             edtUpdNama.setText(nama);
             int harga = cursor.getInt(2);
-            edtUpdHarga.setText(harga + "");
+            edtUpdHarga.setText("Rp. "+ harga + "/hari");
             String keterangan = cursor.getString(3);
             edtUpdKet.setText(keterangan);
             byte[] gambar = cursor.getBlob(4);

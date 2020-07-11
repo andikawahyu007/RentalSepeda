@@ -64,9 +64,10 @@ public class ListSewaActivity extends AppCompatActivity {
             String nama_sepeda = cursor.getString(1);
             String nama_penyewa = cursor.getString(2);
             String tanggal = cursor.getString(3);
-            byte[] gambar = cursor.getBlob(4);
+            int harga = cursor.getInt(4);
+            byte[] gambar = cursor.getBlob(5);
             //add to list
-            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, harga, gambar);
 //            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
@@ -129,7 +130,7 @@ public class ListSewaActivity extends AppCompatActivity {
     private class PilihanSepeda implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(ListSewaActivity.this, PilihSepeda.class);
+            Intent i = new Intent(ListSewaActivity.this, PilihPelanggan.class);
             startActivity(i);
         }
     }
@@ -144,10 +145,11 @@ public class ListSewaActivity extends AppCompatActivity {
             String nama_sepeda = cursor.getString(1);
             String nama_penyewa = cursor.getString(2);
             String tanggal = cursor.getString(3);
-            byte[] gambar = cursor.getBlob(4);
+            int harga = cursor.getInt(4);
+            byte[] gambar = cursor.getBlob(5);
             //add to list
-            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
-            Gson gson = new Gson();
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, harga, gambar);
+//            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
@@ -192,10 +194,11 @@ public class ListSewaActivity extends AppCompatActivity {
             String nama_sepeda = cursor.getString(1);
             String nama_penyewa = cursor.getString(2);
             String tanggal = cursor.getString(3);
-            byte[] gambar = cursor.getBlob(4);
+            int harga = cursor.getInt(4);
+            byte[] gambar = cursor.getBlob(5);
             //add to list
-            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, gambar);
-            Gson gson = new Gson();
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, harga, gambar);
+//            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
@@ -208,21 +211,24 @@ public class ListSewaActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_detail_sewa);
 
-        imageViewIcon = dialog.findViewById(R.id.dlgGambarSewa);
-        final TextView dlgDisewa = dialog.findViewById(R.id.dlgDisewa);
-        final TextView dlgPenyewa = dialog.findViewById(R.id.dlgPenyewa);
-        final TextView dlgTglSewa = dialog.findViewById(R.id.dlgTglSewa);
+        imageViewIcon = dialog.findViewById(R.id.dlgImgSepedaSewa);
+        final TextView dlgSepedaDisewa = dialog.findViewById(R.id.dlgSepedaDisewa);
+        final TextView dlgNamaPenyewa = dialog.findViewById(R.id.dlgNamaPenyewa);
+        final TextView dlgTglDisewa = dialog.findViewById(R.id.dlgTglDisewa);
+        final TextView dlgBiayaSewa = dialog.findViewById(R.id.dlgBiayaSewa);
 
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama_sepeda = cursor.getString(1);
-            dlgDisewa.setText(nama_sepeda);
+            dlgSepedaDisewa.setText(nama_sepeda);
             String penyewa = cursor.getString(2);
-            dlgPenyewa.setText(penyewa + "");
-            String keterangan = cursor.getString(3);
-            dlgTglSewa.setText(keterangan);
-            byte[] gambar = cursor.getBlob(4);
+            dlgNamaPenyewa.setText(penyewa + "");
+            String tglSewa = cursor.getString(3);
+            dlgTglDisewa.setText(tglSewa);
+            int biaya = cursor.getInt(4);
+            dlgBiayaSewa.setText(biaya + "");
+            byte[] gambar = cursor.getBlob(5);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }
 

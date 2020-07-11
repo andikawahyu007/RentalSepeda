@@ -1,15 +1,16 @@
 package com.wahyu.rental;
 
 public class Sewa {
-    private int id;
+    private int id, harga;
     private String nama_sepeda, nama_penyewa, tanggal;
     byte[] gambar;
 
-    public Sewa(int id, String nama_sepeda, String nama_penyewa, String tanggal, byte[] gambar) {
+    public Sewa(int id, String nama_sepeda, String nama_penyewa, String tanggal, int harga, byte[] gambar) {
         this.id = id;
         this.nama_sepeda = nama_sepeda;
         this.nama_penyewa = nama_penyewa;
         this.tanggal = tanggal;
+        this.harga = harga;
         this.gambar = gambar;
     }
 
@@ -43,6 +44,14 @@ public class Sewa {
 
     public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
+    }
+
+    public int getHarga() {
+        return harga;
+    }
+
+    public void setHarga(int harga) {
+        this.harga = harga;
     }
 
     public byte[] getGambar() {

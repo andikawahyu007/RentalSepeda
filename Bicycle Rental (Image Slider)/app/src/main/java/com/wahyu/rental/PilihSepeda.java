@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -31,6 +32,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static com.wahyu.rental.SQLiteHelper.TABLE_PELANGGAN;
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
 
 public class PilihSepeda extends AppCompatActivity {
@@ -42,6 +44,10 @@ public class PilihSepeda extends AppCompatActivity {
     ImageView imageViewIcon;
     private static final String TAG = "PilihSepeda";
     public static SQLiteHelper mSQLiteHelper;
+    public static String EXTRA_ID_PELANGGAN = "extra_id_pelanggan";
+    private int id_sepeda;
+    private Sepeda sepeda;
+    private Pelanggan pelanggan;
 
 
     @Override
@@ -54,8 +60,26 @@ public class PilihSepeda extends AppCompatActivity {
         mAdapter = new ListSepedaAdapter(this, R.layout.baris_item_sepeda, mList);
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
+        if (getIntent() != null) {
+            id_sepeda = getIntent().getIntExtra(EXTRA_ID_PELANGGAN, -1);
+        }
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
+        mList.clear();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String nama = cursor.getString(1);
+            String alamat = cursor.getString(2);
+            String keterangan = cursor.getString(3);
+
+            //add to list
+            pelanggan = new Pelanggan(id, nama, alamat, keterangan);
+        }
+//            Gson gson = new Gson();
+//            newPelanggan.setGambar(img);
+//            String Pelanggan = gson.toJson(newPelanggan).toString();
+//            Log.d(TAG, "onCreate: "+Pelanggan);
         //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
+        cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -64,12 +88,12 @@ public class PilihSepeda extends AppCompatActivity {
             String keterangan = cursor.getString(3);
             byte[] gambar = cursor.getBlob(4);
             //add to list
-            Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
-            Gson gson = new Gson();
+            sepeda = new Sepeda(id, nama, harga, keterangan, gambar);
+//            Gson gson = new Gson();
 //            newSepeda.setGambar(img);
 //            String sepeda = gson.toJson(newSepeda).toString();
 //            Log.d(TAG, "onCreate: "+sepeda);
-            mList.add(newSepeda);
+            mList.add(sepeda);
         }
         mAdapter.notifyDataSetChanged();
         if (mList.size() == 0) {
@@ -89,9 +113,7 @@ public class PilihSepeda extends AppCompatActivity {
                     arrID.add(c.getInt(0));
                 }
                 //show detail dialog
-                Intent pilihPelanggan = new Intent(view.getContext(), PilihPelanggan.class);
-                pilihPelanggan.putExtra(PilihPelanggan.EXTRA_ID_SEPEDA, arrID.get(i));
-                view.getContext().startActivity(pilihPelanggan);
+                showDialogDetail(PilihSepeda.this, arrID.get(i));
             }
         });
     }
@@ -137,25 +159,64 @@ public class PilihSepeda extends AppCompatActivity {
 
     private void showDialogDetail(Activity activity, final int position) {
         final Dialog dialog = new Dialog(activity);
-        dialog.setContentView(R.layout.dialog_detail_sepeda);
+        dialog.setContentView(R.layout.dialog_detail_order);
 
-        imageViewIcon = dialog.findViewById(R.id.detGambar);
-        final TextView edtUpdNama = dialog.findViewById(R.id.detNama);
-        final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
-        final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
+        imageViewIcon = dialog.findViewById(R.id.dlgImgSepedaOrder);
+        final TextView dlgSepedaDiOrder = dialog.findViewById(R.id.dlgSepedaDiOrder);
+        final TextView dlgPenyewa = dialog.findViewById(R.id.dlgPenyewa);
+        final TextView dlgTglDiOrder = dialog.findViewById(R.id.dlgTglDiOrder);
+        final TextView dlgBiayaOrder = dialog.findViewById(R.id.dlgBiayaOrder);
+        final Button btnSewa = dialog.findViewById(R.id.btnSimpanOrder);
 
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);
-            edtUpdNama.setText(nama);
+            dlgSepedaDiOrder.setText(nama);
             int harga = cursor.getInt(2);
-            edtUpdHarga.setText(harga + "");
-            String keterangan = cursor.getString(3);
-            edtUpdKet.setText(keterangan);
+            dlgBiayaOrder.setText(harga + "");
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }
+        cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE id=" + position);
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String nama = cursor.getString(1);
+            dlgPenyewa.setText(nama);
+        }
+
+        java.util.Date sekarang = new java.util.Date();
+        java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
+        dlgTglDiOrder.setText(kalender.format(sekarang));
+
+        btnSewa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                java.util.Date sekarang = new java.util.Date();
+                java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
+
+                try {
+                    mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), kalender.format(sekarang), sepeda.getHarga(), sepeda.getGambar());
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                try {
+                    mSQLiteHelper.updateStatusSepeda(1, sepeda.getId());
+                    mSQLiteHelper.updateStatusPelanggan(1, pelanggan.getId());
+                    Toast.makeText(view.getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+                    Intent Sewa = new Intent(view.getContext(), ListSewaActivity.class);
+                    view.getContext().startActivity(Sewa);
+                    Intent i = new Intent(PilihSepeda.this, ListSewaActivity.class);
+                    startActivity(i);
+                    finish();
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(view.getContext(), "Data gagal disimpan", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //set width of dialog
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
