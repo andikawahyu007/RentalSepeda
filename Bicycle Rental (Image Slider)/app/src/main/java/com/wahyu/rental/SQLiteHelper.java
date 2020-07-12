@@ -83,6 +83,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.executeInsert();
     }
 
+
+    public void updateBiayaSewa(int biaya, int id) {
+        SQLiteDatabase database = getWritableDatabase();
+        //query to update record
+        String sql = "UPDATE " + TABLE_SEWA + " SET biaya=? WHERE id=?";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+
+        statement.bindLong(1, biaya);
+        statement.bindLong(2, id);
+
+        statement.execute();
+        database.close();
+    }
+
     public void updateData(String nama, int harga, String keterangan, byte[] gambar, int id) {
         SQLiteDatabase database = getWritableDatabase();
         //query to update record

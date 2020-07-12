@@ -206,11 +206,11 @@ public class ListPelangganActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);
-            dlgNamaPel.setText(nama);
+            dlgNamaPel.setText("Nama : " + nama);
             String alamat = cursor.getString(2);
-            dlgAlamat.setText(alamat);
+            dlgAlamat.setText("Alamat : " + alamat);
             String keterangan = cursor.getString(3);
-            dlgKetPel.setText(keterangan);
+            dlgKetPel.setText("Keterangan : " + keterangan);
         }
 
         //set width of dialog

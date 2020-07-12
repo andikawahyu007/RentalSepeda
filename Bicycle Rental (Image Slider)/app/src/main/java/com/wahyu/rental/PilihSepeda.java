@@ -174,7 +174,7 @@ public class PilihSepeda extends AppCompatActivity {
             String nama = cursor.getString(1);
             dlgSepedaDiOrder.setText(nama);
             int harga = cursor.getInt(2);
-            dlgBiayaOrder.setText(harga + "");
+            dlgBiayaOrder.setText("Harga sewa : RP. " + harga + "/hari");
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }
@@ -182,12 +182,12 @@ public class PilihSepeda extends AppCompatActivity {
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);
-            dlgPenyewa.setText(nama);
+            dlgPenyewa.setText("Nama : " + nama);
         }
 
         java.util.Date sekarang = new java.util.Date();
         java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        dlgTglDiOrder.setText(kalender.format(sekarang));
+        dlgTglDiOrder.setText("Tanggal Sewa : "+kalender.format(sekarang));
 
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override

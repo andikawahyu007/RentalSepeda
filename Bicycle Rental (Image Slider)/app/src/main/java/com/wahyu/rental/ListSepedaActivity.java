@@ -209,9 +209,9 @@ public class ListSepedaActivity extends AppCompatActivity {
             String nama = cursor.getString(1);
             edtUpdNama.setText(nama);
             int harga = cursor.getInt(2);
-            edtUpdHarga.setText("Rp. " + harga + "/hari");
+            edtUpdHarga.setText("Harga sewa : Rp. " + harga + "/hari");
             String keterangan = cursor.getString(3);
-            edtUpdKet.setText(keterangan);
+            edtUpdKet.setText("Keterangan : " + keterangan);
             byte[] gambar = cursor.getBlob(4);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }

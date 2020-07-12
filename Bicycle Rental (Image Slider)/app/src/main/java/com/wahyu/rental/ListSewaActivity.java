@@ -52,6 +52,7 @@ public class ListSewaActivity extends AppCompatActivity {
     private static final String TAG = "ListSewaActivity";
     public static SQLiteHelper mSQLiteHelper;
     ImageButton mTmbSewa;
+    int TotalBiaya = 0, biayaSewa = 0, selisih = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class ListSewaActivity extends AppCompatActivity {
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
         //get all data from sqlite
+
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + "");
         mList.clear();
         while (cursor.moveToNext()) {
@@ -171,23 +173,45 @@ public class ListSewaActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_detail_sewa);
 
+
+        Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date(2020-10-20)) FROM " + TABLE_SEWA + " WHERE id = " + position);
+        while (cursor.moveToNext()) {
+            selisih = Integer.parseInt(cursor.getString(0));
+        }
+
+        cursor = mSQLiteHelper.getData("SELECT harga FROM " + TABLE_SEPEDA + " WHERE id = " + position);
+        while (cursor.moveToNext()) {
+            biayaSewa = Integer.parseInt(cursor.getString(0));
+        }
+
+        TotalBiaya = biayaSewa * selisih;
+
+        Gson gson = new Gson();
+//            newSepeda.setGambar(img);
+        String selisih2 = gson.toJson(selisih).toString();
+        String biaya2 = gson.toJson(biayaSewa).toString();
+        String total2 = gson.toJson(TotalBiaya).toString();
+        Log.d(TAG, "selisih: " + selisih2 + " biaya: " + biaya2 + " total: " + total2);
+
+        mSQLiteHelper.updateBiayaSewa(TotalBiaya, position);
+
         imageViewIcon = dialog.findViewById(R.id.dlgImgSepedaSewa);
         final TextView dlgSepedaDisewa = dialog.findViewById(R.id.dlgSepedaDisewa);
         final TextView dlgNamaPenyewa = dialog.findViewById(R.id.dlgNamaPenyewa);
         final TextView dlgTglDisewa = dialog.findViewById(R.id.dlgTglDisewa);
         final TextView dlgBiayaSewa = dialog.findViewById(R.id.dlgBiayaSewa);
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + " WHERE id=" + position);
+        cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama_sepeda = cursor.getString(1);
             dlgSepedaDisewa.setText(nama_sepeda);
             String penyewa = cursor.getString(2);
-            dlgNamaPenyewa.setText(penyewa + "");
+            dlgNamaPenyewa.setText("Nama : " + penyewa);
             String tglSewa = cursor.getString(3);
-            dlgTglDisewa.setText(tglSewa);
+            dlgTglDisewa.setText("Tanggal sewa : " + tglSewa);
             int biaya = cursor.getInt(4);
-            dlgBiayaSewa.setText(biaya + "");
+            dlgBiayaSewa.setText("Total biaya sewa : Rp. " + biaya);
             byte[] gambar = cursor.getBlob(5);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }
@@ -224,10 +248,9 @@ public class ListSewaActivity extends AppCompatActivity {
 
     private void showDialogDelete(final int idRecord) {
 
-        int TotalBiaya, biayaSewa = 0, selisih = 0;
         Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date(2020-10-20)) FROM " + TABLE_SEWA + " WHERE id = " + idRecord);
         while (cursor.moveToNext()) {
-            selisih += Integer.parseInt(cursor.getString(0));
+            selisih = Integer.parseInt(cursor.getString(0));
         }
 
         cursor = mSQLiteHelper.getData("SELECT harga FROM " + TABLE_SEPEDA + " WHERE id = " + idRecord);
