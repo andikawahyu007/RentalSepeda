@@ -171,14 +171,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEPEDA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB, status INTEGER)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PELANGGAN + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, alamat INTEGER, keterangan VARCHAR, status INTEGER)");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEWA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_sepeda VARCHAR, nama_penyewa VARCHAR, tgl_sewa VARCHAR, biaya INTEGER, gambar BLOB)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEWA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_sepeda VARCHAR, nama_penyewa VARCHAR, tgl_sewa DATE, biaya INTEGER, gambar BLOB)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEPEDA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, harga INTEGER, keterangan VARCHAR, gambar BLOB, status INTEGER)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PELANGGAN + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama VARCHAR, alamat INTEGER, keterangan VARCHAR, status INTEGER)");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEWA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_sepeda VARCHAR, nama_penyewa VARCHAR, tgl_sewa VARCHAR, biaya INTEGER, gambar BLOB)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SEWA + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_sepeda VARCHAR, nama_penyewa VARCHAR, tgl_sewa DATE, biaya INTEGER, gambar BLOB)");
 
     }
 }

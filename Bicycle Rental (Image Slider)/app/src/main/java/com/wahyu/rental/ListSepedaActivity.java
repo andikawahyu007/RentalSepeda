@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -32,6 +33,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 
 public class ListSepedaActivity extends AppCompatActivity {
 
@@ -145,10 +147,6 @@ public class ListSepedaActivity extends AppCompatActivity {
             byte[] gambar = cursor.getBlob(4);
             //add to list
             Sepeda newSepeda = new Sepeda(id, nama, harga, keterangan, gambar);
-//            Gson gson = new Gson();
-//            newSepeda.setGambar(img);
-//            String sepeda = gson.toJson(newSepeda).toString();
-//            Log.d(TAG, "onCreate: "+sepeda);
             mList.add(newSepeda);
         }
         mAdapter.notifyDataSetChanged();
@@ -204,13 +202,14 @@ public class ListSepedaActivity extends AppCompatActivity {
         final TextView edtUpdHarga = dialog.findViewById(R.id.detHarga);
         final TextView edtUpdKet = dialog.findViewById(R.id.detKet);
 
+
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE id=" + position);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String nama = cursor.getString(1);
             edtUpdNama.setText(nama);
             int harga = cursor.getInt(2);
-            edtUpdHarga.setText("Rp. "+ harga + "/hari");
+            edtUpdHarga.setText("Rp. " + harga + "/hari");
             String keterangan = cursor.getString(3);
             edtUpdKet.setText(keterangan);
             byte[] gambar = cursor.getBlob(4);

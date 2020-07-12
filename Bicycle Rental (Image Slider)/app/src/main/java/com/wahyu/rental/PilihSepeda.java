@@ -186,14 +186,14 @@ public class PilihSepeda extends AppCompatActivity {
         }
 
         java.util.Date sekarang = new java.util.Date();
-        java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
+        java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("yyyy-MM-dd");
         dlgTglDiOrder.setText(kalender.format(sekarang));
 
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 java.util.Date sekarang = new java.util.Date();
-                java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("dd-MM-yyyy");
+                java.text.SimpleDateFormat kalender = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
                 try {
                     mSQLiteHelper.insertDataSewa(sepeda.getNama(), pelanggan.getNama(), kalender.format(sekarang), sepeda.getHarga(), sepeda.getGambar());

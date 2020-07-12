@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,6 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +38,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 
@@ -43,7 +51,7 @@ public class ListSewaActivity extends AppCompatActivity {
     ImageView imageViewIcon;
     private static final String TAG = "ListSewaActivity";
     public static SQLiteHelper mSQLiteHelper;
-    ImageButton mLihatSepeda;
+    ImageButton mTmbSewa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,7 @@ public class ListSewaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_sewa);
 
         mListView = findViewById(R.id.listSewa);
-        mLihatSepeda = findViewById(R.id.btnTmbSewa);
+        mTmbSewa = findViewById(R.id.btnTmbSewa);
         mList = new ArrayList<>();
         mAdapter = new ListSewaAdapter(this, R.layout.baris_item_sewa, mList);
         mListView.setAdapter(mAdapter);
@@ -80,13 +88,13 @@ public class ListSewaActivity extends AppCompatActivity {
             Toast.makeText(this, "Maaf, Tidak Ada Data Sewa Yang Ditemukan", Toast.LENGTH_SHORT).show();
         }
 
-        mLihatSepeda.setOnClickListener(new PilihanSepeda());
+        mTmbSewa.setOnClickListener(new TambahSewa());
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
                 //alert dialog to display options of update and delete
-                final CharSequence[] items = {"Sudah Kembali"};
+                final CharSequence[] items = {"Sudah Kembali ??"};
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ListSewaActivity.this);
 
@@ -127,7 +135,7 @@ public class ListSewaActivity extends AppCompatActivity {
         });
     }
 
-    private class PilihanSepeda implements View.OnClickListener {
+    private class TambahSewa implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(ListSewaActivity.this, PilihPelanggan.class);
@@ -158,54 +166,6 @@ public class ListSewaActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void showDialogDelete(final int idRecord) {
-        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(ListSewaActivity.this);
-        dialogDelete.setTitle("PERINGATAN!!!");
-        dialogDelete.setMessage("Apakah sepeda memang sudah kembali ??");
-        dialogDelete.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                try {
-                    mSQLiteHelper.updateStatusSepeda(0, idRecord);
-                    mSQLiteHelper.updateStatusPelanggan(0, idRecord);
-                    mSQLiteHelper.deleteDataSewa(idRecord);
-                    Toast.makeText(ListSewaActivity.this, "Sepeda dapat disewakan kembali.", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Log.e("ERROR", e.getMessage());
-                }
-                updateRecordList();
-            }
-        });
-        dialogDelete.setNegativeButton("Belum", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        dialogDelete.show();
-    }
-
-    private void updateRecordList() {
-        //get all data from sqlite
-        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + "");
-        mList.clear();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String nama_sepeda = cursor.getString(1);
-            String nama_penyewa = cursor.getString(2);
-            String tanggal = cursor.getString(3);
-            int harga = cursor.getInt(4);
-            byte[] gambar = cursor.getBlob(5);
-            //add to list
-            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, harga, gambar);
-//            Gson gson = new Gson();
-//            newSepeda.setGambar(img);
-//            String sepeda = gson.toJson(newSepeda).toString();
-//            Log.d(TAG, "onCreate: "+sepeda);
-            mList.add(newSewa);
-        }
-        mAdapter.notifyDataSetChanged();
-    }
 
     private void showDialogDetail(Activity activity, final int position) {
         final Dialog dialog = new Dialog(activity);
@@ -238,6 +198,69 @@ public class ListSewaActivity extends AppCompatActivity {
         int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7);
         dialog.getWindow().setLayout(width, height);
         dialog.show();
+    }
+
+    private void updateRecordList() {
+        //get all data from sqlite
+        Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEWA + "");
+        mList.clear();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String nama_sepeda = cursor.getString(1);
+            String nama_penyewa = cursor.getString(2);
+            String tanggal = cursor.getString(3);
+            int harga = cursor.getInt(4);
+            byte[] gambar = cursor.getBlob(5);
+            //add to list
+            Sewa newSewa = new Sewa(id, nama_sepeda, nama_penyewa, tanggal, harga, gambar);
+//            Gson gson = new Gson();
+//            newSepeda.setGambar(img);
+//            String sepeda = gson.toJson(newSepeda).toString();
+//            Log.d(TAG, "onCreate: "+sepeda);
+            mList.add(newSewa);
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void showDialogDelete(final int idRecord) {
+
+        int TotalBiaya, biayaSewa = 0, selisih = 0;
+        Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date(2020-10-20)) FROM " + TABLE_SEWA + " WHERE id = " + idRecord);
+        while (cursor.moveToNext()) {
+            selisih += Integer.parseInt(cursor.getString(0));
+        }
+
+        cursor = mSQLiteHelper.getData("SELECT harga FROM " + TABLE_SEPEDA + " WHERE id = " + idRecord);
+        while (cursor.moveToNext()) {
+            biayaSewa = Integer.parseInt(cursor.getString(0));
+        }
+
+        TotalBiaya = biayaSewa * selisih;
+
+        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(ListSewaActivity.this);
+        dialogDelete.setTitle("BIAYA SEWA");
+        dialogDelete.setMessage("Total biaya sewa : RP." + TotalBiaya);
+        dialogDelete.setPositiveButton("Lanjut", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                try {
+                    mSQLiteHelper.updateStatusSepeda(0, idRecord);
+                    mSQLiteHelper.updateStatusPelanggan(0, idRecord);
+                    mSQLiteHelper.deleteDataSewa(idRecord);
+                    Toast.makeText(ListSewaActivity.this, "Sepeda dapat disewakan kembali.", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Log.e("ERROR", e.getMessage());
+                }
+                updateRecordList();
+            }
+        });
+        dialogDelete.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        dialogDelete.show();
     }
 
     public static byte[] imageViewToByte(ImageView image) {
