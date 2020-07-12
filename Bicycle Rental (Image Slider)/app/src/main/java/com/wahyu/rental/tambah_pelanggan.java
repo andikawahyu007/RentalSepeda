@@ -46,6 +46,39 @@ public class tambah_pelanggan extends AppCompatActivity {
 
         mSQLiteHelper = SQLiteHelper.getInstance(this);
 
+        mEdtNama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mEdtNama.setHint("");
+                } else {
+                    mEdtNama.setHint("Nama Pelanggan");
+                }
+            }
+        });
+
+        mEdtAlamat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mEdtAlamat.setHint("");
+                } else {
+                    mEdtAlamat.setHint("Alamat");
+                }
+            }
+        });
+
+        mEdtKetPel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mEdtKetPel.setHint("");
+                } else {
+                    mEdtKetPel.setHint("Keterangan");
+                }
+            }
+        });
+
         mBtnTmbPelanggan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -210,7 +210,7 @@ public class ListPelangganActivity extends AppCompatActivity {
             String alamat = cursor.getString(2);
             dlgAlamat.setText("Alamat : " + alamat);
             String keterangan = cursor.getString(3);
-            dlgKetPel.setText("Keterangan : " + keterangan);
+            dlgKetPel.setText("Keterangan :\n" + keterangan);
         }
 
         //set width of dialog

@@ -21,6 +21,7 @@
             android:gravity="center"
             android:hint="Nama Pelanggan"
             android:textColor="#000000"
+            android:textCursorDrawable="@null"
             android:textSize="25sp"
             android:textStyle="italic" />
 
@@ -35,6 +36,7 @@
             android:gravity="center"
             android:hint="Alamat"
             android:textColor="#000000"
+            android:textCursorDrawable="@null"
             android:textSize="25sp"
             android:textStyle="italic" />
 
@@ -49,6 +51,7 @@
             android:gravity="center"
             android:hint="Keterangan"
             android:textColor="#000000"
+            android:textCursorDrawable="@null"
             android:textSize="25sp"
             android:textStyle="italic" />
 

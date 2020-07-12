@@ -142,6 +142,7 @@ public class ListSewaActivity extends AppCompatActivity {
         public void onClick(View view) {
             Intent i = new Intent(ListSewaActivity.this, PilihPelanggan.class);
             startActivity(i);
+            finish();
         }
     }
 
@@ -174,7 +175,7 @@ public class ListSewaActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_detail_sewa);
 
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date(2020-10-20)) FROM " + TABLE_SEWA + " WHERE id = " + position);
+        Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date('now')) FROM " + TABLE_SEWA + " WHERE id = " + position);
         while (cursor.moveToNext()) {
             selisih = Integer.parseInt(cursor.getString(0));
         }
@@ -184,7 +185,7 @@ public class ListSewaActivity extends AppCompatActivity {
             biayaSewa = Integer.parseInt(cursor.getString(0));
         }
 
-        TotalBiaya = biayaSewa * selisih;
+        TotalBiaya = biayaSewa * (selisih + 1);
 
         Gson gson = new Gson();
 //            newSepeda.setGambar(img);
@@ -209,9 +210,9 @@ public class ListSewaActivity extends AppCompatActivity {
             String penyewa = cursor.getString(2);
             dlgNamaPenyewa.setText("Nama : " + penyewa);
             String tglSewa = cursor.getString(3);
-            dlgTglDisewa.setText("Tanggal sewa : " + tglSewa);
+            dlgTglDisewa.setText("Tanggal sewa :\n" + tglSewa);
             int biaya = cursor.getInt(4);
-            dlgBiayaSewa.setText("Total biaya sewa : Rp. " + biaya);
+            dlgBiayaSewa.setText("Total biaya sewa :\nRp. " + biaya);
             byte[] gambar = cursor.getBlob(5);
             imageViewIcon.setImageBitmap(BitmapFactory.decodeByteArray(gambar, 0, gambar.length));
         }
@@ -248,7 +249,7 @@ public class ListSewaActivity extends AppCompatActivity {
 
     private void showDialogDelete(final int idRecord) {
 
-        Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date(2020-10-20)) FROM " + TABLE_SEWA + " WHERE id = " + idRecord);
+        Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date('now')) FROM " + TABLE_SEWA + " WHERE id = " + idRecord);
         while (cursor.moveToNext()) {
             selisih = Integer.parseInt(cursor.getString(0));
         }
@@ -258,7 +259,7 @@ public class ListSewaActivity extends AppCompatActivity {
             biayaSewa = Integer.parseInt(cursor.getString(0));
         }
 
-        TotalBiaya = biayaSewa * selisih;
+        TotalBiaya = biayaSewa * (selisih + 1);
 
         AlertDialog.Builder dialogDelete = new AlertDialog.Builder(ListSewaActivity.this);
         dialogDelete.setTitle("BIAYA SEWA");

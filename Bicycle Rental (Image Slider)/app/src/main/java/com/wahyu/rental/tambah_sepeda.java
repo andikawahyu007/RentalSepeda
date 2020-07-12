@@ -47,7 +47,38 @@ public class tambah_sepeda extends AppCompatActivity {
 
         mSQLiteHelper = SQLiteHelper.getInstance(this);
 
-//        mSQLiteHelper.queryData();
+        mEdtNama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mEdtNama.setHint("");
+                } else {
+                    mEdtNama.setHint("Nama Sepeda");
+                }
+            }
+        });
+
+        mEdtHarga.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mEdtHarga.setHint("");
+                } else {
+                    mEdtHarga.setHint("Harga sewa/hari");
+                }
+            }
+        });
+
+        mEdtKeterangan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mEdtKeterangan.setHint("");
+                } else {
+                    mEdtKeterangan.setHint("Keterangan");
+                }
+            }
+        });
 
         mImageAdd.setOnClickListener(new View.OnClickListener() {
             @Override
