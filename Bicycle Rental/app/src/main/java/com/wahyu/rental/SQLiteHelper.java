@@ -128,6 +128,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
+    public void updateStatusSepeda2(int status) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE " + TABLE_SEPEDA + " SET status=?";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+
+        statement.bindLong(1, status);
+
+        statement.execute();
+        database.close();
+    }
+
     public void updateStatusPelanggan(int status, int id) {
         SQLiteDatabase database = getWritableDatabase();
         String sql = "UPDATE " + TABLE_PELANGGAN + " SET status=? WHERE id=?";
@@ -136,6 +148,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         statement.bindLong(1, status);
         statement.bindLong(2, id);
+
+        statement.execute();
+        database.close();
+    }
+
+    public void updateStatusPelanggan2(int status) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE " + TABLE_PELANGGAN + " SET status=?";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+
+        statement.bindLong(1, status);
 
         statement.execute();
         database.close();

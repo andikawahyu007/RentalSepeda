@@ -32,6 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import static com.wahyu.rental.SQLiteHelper.TABLE_PELANGGAN;
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 
 public class ListPelangganActivity extends AppCompatActivity {
 
@@ -134,6 +135,7 @@ public class ListPelangganActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_PELANGGAN + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {

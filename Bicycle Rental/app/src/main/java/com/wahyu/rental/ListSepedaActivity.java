@@ -57,6 +57,7 @@ public class ListSepedaActivity extends AppCompatActivity {
         mAdapter = new ListSepedaAdapter(this, R.layout.baris_item_sepeda, mList);
         mListView.setAdapter(mAdapter);
         mSQLiteHelper = SQLiteHelper.getInstance(this);
+
         //get all data from sqlite
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
@@ -137,6 +138,7 @@ public class ListSepedaActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         Cursor cursor = mSQLiteHelper.getData("SELECT * FROM " + TABLE_SEPEDA + " WHERE status = 0");
         mList.clear();
         while (cursor.moveToNext()) {

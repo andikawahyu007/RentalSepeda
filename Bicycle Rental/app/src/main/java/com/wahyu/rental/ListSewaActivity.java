@@ -39,7 +39,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
-import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
+import static com.wahyu.rental.SQLiteHelper.TABLE_PELANGGAN;
 import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
 
 public class ListSewaActivity extends AppCompatActivity {
@@ -173,6 +173,8 @@ public class ListSewaActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_detail_sewa);
 
+        mSQLiteHelper.updateStatusSepeda(1, position);
+        mSQLiteHelper.updateStatusPelanggan(1, position);
 
         Cursor cursor = mSQLiteHelper.getData("SELECT strftime('%d', date(tgl_sewa)) - strftime('%d', date('now')) FROM " + TABLE_SEWA + " WHERE id = " + position);
         while (cursor.moveToNext()) {
@@ -271,6 +273,7 @@ public class ListSewaActivity extends AppCompatActivity {
                     mSQLiteHelper.updateStatusPelanggan(0, idRecord);
                     mSQLiteHelper.deleteDataSewa(idRecord);
                     Toast.makeText(ListSewaActivity.this, "Sepeda dapat disewakan kembali.", Toast.LENGTH_SHORT).show();
+                    finish();
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());
                 }

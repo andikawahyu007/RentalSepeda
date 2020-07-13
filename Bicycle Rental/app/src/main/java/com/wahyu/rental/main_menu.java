@@ -4,13 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEPEDA;
+import static com.wahyu.rental.SQLiteHelper.TABLE_PELANGGAN;
+import static com.wahyu.rental.SQLiteHelper.TABLE_SEWA;
+
 public class main_menu extends AppCompatActivity {
     ImageButton mbtnAbout, mbtnDataSepeda, mbtnDataSewa, mbtnDataPelanggan, mbtnKeluar;
     final Context mContext = this;
+    public static SQLiteHelper mSQLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
