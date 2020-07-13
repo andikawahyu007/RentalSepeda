@@ -7,15 +7,17 @@
     android:orientation="vertical"
     tools:mContext=".SplashScreenActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:background="@drawable/custom"
             android:gravity="center"
             android:text="MAIN\nMENU"
@@ -27,63 +29,54 @@
             android:id="@+id/btnAbout"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="175dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="160dp"
             android:background="@drawable/logo_about" />
-    </FrameLayout>
+    </RelativeLayout>
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center">
+        <ImageButton
+            android:id="@+id/btnDataSepeda"
+            android:layout_width="120dp"
+            android:layout_height="121dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bike" />
 
-            <ImageButton
-                android:id="@+id/btnDataSepeda"
-                android:layout_width="120dp"
-                android:layout_height="121dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/bike" />
+        <ImageButton
+            android:id="@+id/btnDataSewa"
+            android:layout_width="120dp"
+            android:layout_height="121dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/book" />
+    </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/btnDataSewa"
-                android:layout_width="120dp"
-                android:layout_height="121dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/book" />
-        </TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
 
-        <TableLayout>
+        <ImageButton
+            android:id="@+id/btnDataPelanggan"
+            android:layout_width="120dp"
+            android:layout_height="121dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/adduser" />
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnDataPelanggan"
-                    android:layout_width="120dp"
-                    android:layout_height="121dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/adduser" />
-
-                <ImageButton
-                    android:id="@+id/btnKeluar"
-                    android:layout_width="120dp"
-                    android:layout_height="121dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/exit" />
-            </TableRow>
-        </TableLayout>
-    </TableLayout>
+        <ImageButton
+            android:id="@+id/btnKeluar"
+            android:layout_width="120dp"
+            android:layout_height="121dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/exit" />
+    </LinearLayout>
 </LinearLayout>
