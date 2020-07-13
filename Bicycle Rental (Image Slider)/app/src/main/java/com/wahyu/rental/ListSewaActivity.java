@@ -142,7 +142,6 @@ public class ListSewaActivity extends AppCompatActivity {
         public void onClick(View view) {
             Intent i = new Intent(ListSewaActivity.this, PilihPelanggan.class);
             startActivity(i);
-            finish();
         }
     }
 

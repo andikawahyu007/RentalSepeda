@@ -91,10 +91,10 @@ public class PilihPelanggan extends AppCompatActivity {
                     arrID.add(c.getInt(0));
                 }
                 //show detail dialog
-                Intent pilihSepeda = new Intent(view.getContext(), PilihSepeda.class);
+                Intent pilihSepeda = new Intent(PilihPelanggan.this, PilihSepeda.class);
                 pilihSepeda.putExtra(PilihSepeda.EXTRA_ID_PELANGGAN, arrID.get(i));
-                view.getContext().startActivity(pilihSepeda);
-
+                startActivity(pilihSepeda);
+                finish();
             }
         });
     }

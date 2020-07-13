@@ -206,10 +206,6 @@ public class PilihSepeda extends AppCompatActivity {
                     mSQLiteHelper.updateStatusSepeda(1, sepeda.getId());
                     mSQLiteHelper.updateStatusPelanggan(1, pelanggan.getId());
                     Toast.makeText(view.getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
-                    Intent Sewa = new Intent(view.getContext(), ListSewaActivity.class);
-                    view.getContext().startActivity(Sewa);
-                    Intent i = new Intent(PilihSepeda.this, ListSewaActivity.class);
-                    startActivity(i);
                     finish();
                 } catch (Throwable t) {
                     t.printStackTrace();
